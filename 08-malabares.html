@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malabares · AFD 2º Bachillerato</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --ink:#16232B; --ink-soft:#3C4A52; --paper:#F1F3EF; --paper-raise:#E4E7E0; --line:#C9CDC6;
+  --cinder:#D64545; --track:#3B6FA5; --lane:#2F7A5E; --bib:#C98A1F; --garnet:#7A1F2B;
+  --font-display:'Bebas Neue','Arial Narrow',sans-serif; --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;} img{max-width:100%;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.site-header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:40;}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);}
+.brand .crest{width:10px;height:24px;background:var(--garnet);display:inline-block;transform:skewX(-8deg);}
+.brand-name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:10px;margin-left:2px;}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.main-nav a{font-family:var(--font-display);font-size:16px;letter-spacing:.5px;padding:8px 12px;text-decoration:none;color:var(--ink-soft);border-bottom:3px solid transparent;}
+.main-nav a:hover,.main-nav a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.season{padding:34px 0 26px;border-bottom:1px solid var(--line);}
+.season h1{font-family:var(--font-display);font-size:44px;letter-spacing:.5px;margin:0 0 4px;line-height:.95;}
+.season p.lede{margin:0 0 26px;color:var(--ink-soft);max-width:60ch;}
+.track-strip{display:flex;flex-direction:column;gap:10px;}
+.lane-row{display:flex;align-items:center;gap:14px;}
+.lane-label{width:78px;flex:0 0 auto;font-family:var(--font-display);font-size:15px;color:var(--ink-soft);text-align:right;}
+.lane-track{flex:1;height:14px;background:var(--paper-raise);border-radius:7px;position:relative;overflow:hidden;}
+.lane-fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;}
+.lane-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--paper);border:2px solid var(--ink);}
+.lane-dot.off{background:var(--line);border-color:var(--line);}
+.season-meta{display:flex;gap:26px;margin-top:18px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
+.season-meta b{color:var(--ink);font-weight:600;}
+.section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.4px;margin:40px 0 16px;}
+.trim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+.trim-card{border:1px solid var(--ink);border-radius:6px;padding:20px;text-decoration:none;color:var(--ink);background:var(--paper);}
+.trim-card .num{font-family:var(--font-display);font-size:46px;line-height:1;}
+.trim-card .name{font-weight:600;margin:6px 0 10px;}
+.trim-card .range{font-size:12.5px;color:var(--ink-soft);}
+.trim-card.t1{border-top:5px solid var(--cinder);} .trim-card.t2{border-top:5px solid var(--track);} .trim-card.t3{border-top:5px solid var(--lane);}
+.bloque-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.bloque-card{border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none;color:var(--ink);background:#fff;display:flex;flex-direction:column;gap:8px;}
+.bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
+.bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+.bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
+.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
+.side-nav{position:sticky;top:78px;}
+.side-nav .group{margin-bottom:20px;}
+.side-nav .group-title{font-family:var(--font-display);font-size:13px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:6px;}
+.side-nav a{display:block;padding:6px 0;font-size:14px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent;padding-left:10px;}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.bloque-header{margin-bottom:18px;}
+.bloque-eyebrow{display:inline-block;font-family:var(--font-display);font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#fff;padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.bloque-header h1{font-family:var(--font-display);font-size:40px;margin:0 0 6px;letter-spacing:.4px;}
+.bloque-header .sub{color:var(--ink-soft);font-size:15px;max-width:65ch;}
+.theory{max-width:72ch;}
+.theory h1{display:none;}
+.theory h2{font-size:21px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.theory p{margin:0 0 14px;} .theory ul,.theory ol{margin:0 0 14px;padding-left:22px;} .theory li{margin-bottom:4px;}
+.theory strong{font-weight:700;}
+.theory blockquote{margin:0 0 18px;padding:12px 16px;background:var(--paper-raise);border-left:3px solid var(--ink);font-size:14.5px;}
+.theory table{border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px;}
+.theory th,.theory td{border:1px solid var(--line);padding:7px 10px;text-align:left;}
+.theory th{background:var(--paper-raise);font-weight:600;}
+.sesiones-title{font-family:var(--font-display);font-size:20px;margin:40px 0 12px;letter-spacing:.4px;}
+.sesiones-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;}
+.bib-card{flex:0 0 auto;width:132px;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;background:#fff;}
+.bib-card .n{font-family:var(--font-display);font-size:28px;line-height:1;}
+.bib-card .fecha{font-size:11.5px;color:var(--ink-soft);margin:2px 0 6px;}
+.bib-card .detalle{font-size:12px;line-height:1.3;}
+.tu-turno{margin-top:46px;border:1px dashed var(--ink-soft);border-radius:6px;padding:22px 24px;background:#fff;}
+.tu-turno h2{font-family:var(--font-display);font-size:20px;margin:0 0 6px;letter-spacing:.4px;border:none;padding:0;}
+.tu-turno p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+.turno-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:not-allowed;opacity:.45;}
+textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font-size:14px;border:1px solid var(--line);border-radius:3px;padding:10px;margin-bottom:12px;resize:vertical;}
+.cal-filtros{display:flex;gap:8px;margin:18px 0 22px;flex-wrap:wrap;}
+.cal-filtros button{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+.cal-filtros button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.cal-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.cal-table th{text-align:left;font-family:var(--font-display);font-weight:400;letter-spacing:.4px;font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--ink);padding:8px 10px;}
+.cal-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.cal-table tr.off td{color:var(--ink-soft);font-style:italic;background:var(--paper-raise);}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;color:#fff;font-weight:600;}
+.clasif-aviso{background:var(--paper-raise);border-left:3px solid var(--track);padding:12px 16px;margin-bottom:16px;font-size:13.5px;}
+.clasif-tabla td:nth-child(n+3):nth-last-child(n+2){text-align:center;}
+.reto-dots{display:flex;gap:3px;flex-wrap:wrap;max-width:180px;}
+.reto-dot{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);font-size:9px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);background:#fff;}
+.reto-dot.on{background:var(--lane);border-color:var(--lane);color:#fff;font-weight:700;}
+.site-footer{border-top:2px solid var(--ink);margin-top:60px;padding:22px 0;font-size:12.5px;color:var(--ink-soft);}
+.rotacion-nota{background:var(--paper-raise);border-left:3px solid var(--bib);padding:14px 16px;margin-bottom:18px;font-size:13.5px;line-height:1.5;}
+.ficha-sesion{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:#fff;}
+.ficha-sesion summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;align-items:center;gap:14px;}
+.ficha-sesion summary::-webkit-details-marker{display:none;}
+.ficha-sesion summary::after{content:"+";margin-left:auto;font-family:var(--font-display);font-size:20px;color:var(--ink-soft);}
+.ficha-sesion[open] summary::after{content:"–";}
+.fs-n{font-family:var(--font-display);font-size:20px;color:var(--bib);width:34px;flex:0 0 auto;}
+.fs-fecha{font-size:12.5px;color:var(--ink-soft);width:60px;flex:0 0 auto;}
+.fs-obj{font-weight:600;font-size:14.5px;}
+.fs-body{padding:0 16px 18px;}
+.fs-calentamiento{font-size:13.5px;color:var(--ink-soft);margin:0 0 12px;}
+.fs-tabla{width:100%;border-collapse:collapse;font-size:13px;}
+.fs-tabla th,.fs-tabla td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+.fs-tabla th{background:var(--paper-raise);font-weight:600;font-size:12.5px;}
+.cierre-nota{margin-top:12px;padding:10px 14px;background:var(--paper-raise);border-left:3px solid var(--garnet);font-size:13px;}
+.concepto-dia{margin-bottom:14px;padding:12px 14px;background:#FBF3E4;border-left:3px solid var(--cinder);font-size:13.5px;line-height:1.5;}
+.meso-title{font-family:var(--font-display);font-size:17px;letter-spacing:.4px;margin:26px 0 10px;color:var(--ink-soft);}
+@media (max-width:880px){
+  .bloque-layout{grid-template-columns:1fr;} .side-nav{position:static;display:flex;overflow-x:auto;gap:18px;}
+  .side-nav .group{margin-bottom:0;flex:0 0 auto;} .trim-grid{grid-template-columns:1fr;} .main-nav{display:none;} .season h1{font-size:34px;}
+}
+</style></head><body>
+<header class="site-header"><div class="wrap bar">
+      <a class="brand" href="index.html"><span class="crest"></span><span class="brand-name">AFD</span>
+      <span class="brand-sub">2º Bachillerato · Colegio Santa María la Blanca</span></a>
+      <nav class="main-nav"><a href="index.html" class="">Inicio</a><a href="calendario.html" class="">Calendario</a></nav>
+    </div></header>
+<main><div class="wrap"><div class="bloque-layout">
+      <nav class="side-nav"><div class="group"><div class="group-title">Eje del curso</div><a href="01-fuerza.html" class="">Fuerza</a></div><div class="group"><div class="group-title">1er trimestre</div><a href="02-resistencia.html" class="">Resistencia</a><a href="03-deporte-profesor.html" class="">Deporte del profesor</a><a href="04-deporte-alumnos.html" class="">Deporte diseñado por alumnos</a></div><div class="group"><div class="group-title">2º trimestre</div><a href="05-natacion.html" class="">Natación</a><a href="06-pickleball.html" class="">Pickleball</a></div><div class="group"><div class="group-title">3er trimestre</div><a href="07-hibrido.html" class="">Híbrido Fuerza-Resistencia</a><a href="08-malabares.html" class="active">Malabares</a></div><div class="group"><a href="calendario.html">↳ Ver calendario completo</a></div></nav>
+      <div>
+        <div class="bloque-header">
+          <span class="bloque-eyebrow lane">Trimestre 3</span>
+          <h1>Malabares</h1><p class="sub">Coordinación y aprendizaje motor por retos graduados: de 1 objeto a la exhibición final.</p>
+        </div>
+        <div class="theory"><h1>Malabares — Deporte por retos (3er Trimestre)</h1>
+<h2>1. Por qué se trabajan malabares en Educación Física</h2>
+<p>Los malabares no son solo un juego circense: son una de las herramientas más eficaces para desarrollar <strong>coordinación óculo-manual, lateralidad, ritmo y concentración</strong>. A diferencia de la fuerza o la resistencia, aquí la mejora depende casi exclusivamente de la repetición correcta y de la automatización motriz progresiva — un contenido distinto y complementario a todo lo trabajado el resto del curso.</p>
+<h2>2. Principios del aprendizaje motor aplicados a los malabares</h2>
+<ul>
+<li><strong>De lo simple a lo complejo</strong>: nunca se empieza directamente con 3 objetos; se automatiza primero el gesto con 1 y 2.</li>
+<li><strong>Repetición con propósito</strong>: repetir el mismo lanzamiento de forma consciente (altura constante, misma trayectoria) es más eficaz que muchos intentos desordenados.</li>
+<li><strong>Transferencia bilateral</strong>: practicar con ambas manos de forma equilibrada mejora el control general, incluso el de la mano dominante.</li>
+<li><strong>Tolerancia al error</strong>: dejar caer el objeto es parte necesaria del proceso de aprendizaje motor, no un fracaso — es la forma en que el sistema nervioso ajusta la trayectoria.</li>
+</ul>
+<h2>3. Progresión técnica del bloque</h2>
+<ol>
+<li><strong>1 objeto</strong>: lanzamiento y recepción con trayectoria en arco, misma altura, control de la mano contraria.</li>
+<li><strong>2 objetos (intercambio)</strong>: lanzar el primer objeto, y cuando alcanza su punto más alto, lanzar el segundo — la base de toda la cascada.</li>
+<li><strong>Cascada con 3 objetos</strong>: el patrón más clásico y la base de la mayoría de progresiones posteriores.</li>
+<li><strong>Patrones derivados</strong>:</li>
+<li><strong>Columnas</strong>: cada mano lanza y recibe su propio objeto en vertical, sin cruzar.</li>
+<li><strong>Ducha</strong>: los objetos siguen una trayectoria circular, lanzados siempre por la misma mano.</li>
+<li><strong>Passing en parejas</strong>: intercambio de objetos entre dos personas siguiendo un patrón coordinado — añade la dificultad de sincronizarse con el ritmo de otra persona.</li>
+</ol>
+<h2>4. Los 10 retos de este bloque</h2>
+<p>El aprendizaje se organiza en 10 retos progresivos, cada uno con un criterio de superación objetivo. Cada reto vale <strong>1 punto</strong>; el intento en el que se logra queda registrado como información, pero no cambia la puntuación.</p>
+<ol>
+<li><strong>Control con 1 objeto</strong>: 10 lanzamientos y recepciones seguidas con la misma mano, sin que caiga.</li>
+<li><strong>Cambio de mano</strong>: lanzar con una mano y recibir con la otra, 10 veces seguidas sin fallo.</li>
+<li><strong>Intercambio con 2 objetos</strong>: completar el intercambio (lanzar el 2º cuando el 1º llega arriba) 8 de 10 veces.</li>
+<li><strong>Intercambio sostenido</strong>: repetir el intercambio de 2 objetos 5 veces seguidas sin que caiga ninguno.</li>
+<li><strong>Cascada básica (3 objetos)</strong>: sostener el patrón al menos 6 lanzamientos seguidos.</li>
+<li><strong>Cascada consolidada</strong>: sostener la cascada al menos 15 lanzamientos seguidos.</li>
+<li><strong>Patrón de columnas</strong>: mantenerlo al menos 8 lanzamientos.</li>
+<li><strong>Patrón de ducha</strong>: mantenerlo al menos 8 lanzamientos.</li>
+<li><strong>Recuperación tras fallo</strong>: dejar caer un objeto en plena cascada, recogerlo sin parar del todo, y continuar al menos 5 lanzamientos más.</li>
+<li><strong>Passing en parejas</strong>: completar un intercambio de objetos con un compañero de al menos 6 pases seguidos sin que caiga nada.</li>
+</ol>
+<h2>5. La exhibición final</h2>
+<p>El bloque termina con una sesión de exhibición donde cada alumno muestra el nivel alcanzado. No se trata de una competición entre compañeros, sino de una demostración individual del propio progreso — coherente con la filosofía de todo el curso: comparar cada uno con su propio punto de partida.</p></div>
+        <h2 class="sesiones-title">Las 10 sesiones del trimestre — 10 retos</h2>
+        <p style="color:var(--ink-soft);font-size:14px;max-width:70ch;margin-top:-4px;">Cada sesión explica su reto del día antes de la clase. Haz clic para desplegar cada ficha.</p>
+        <details class="ficha-sesion">
+  <summary><span class="fs-n">01</span><span class="fs-fecha">04 feb</span><span class="fs-obj">Reto 1 — Control con 1 objeto</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Todo el aprendizaje de malabares empieza por automatizar un único lanzamiento en arco, con la misma altura y trayectoria cada vez — sin esto, cualquier intento con más objetos se descontrola enseguida.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Explicación</td><td>Por qué se trabajan malabares en EF: coordinación, lateralidad, concentración</td><td>10 min</td><td>—</td></tr><tr><td>Técnica</td><td>Lanzamiento y recepción con 1 objeto, misma mano</td><td>15 min</td><td>Altura y trayectoria constantes.</td></tr><tr><td>Reto</td><td>Intento del Reto 1</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> 10 lanzamientos y recepciones seguidas con la misma mano, sin que caiga.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">02</span><span class="fs-fecha">11 feb</span><span class="fs-obj">Reto 2 — Cambio de mano</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Lanzar con una mano y recibir con la otra empieza a preparar la coordinación bilateral que necesitaréis para la cascada. La mano no dominante suele costar más al principio — es normal, es parte del proceso.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Lanzamiento cruzado, una mano lanza y la otra recibe</td><td>20 min</td><td>Trabajad ambas direcciones por igual.</td></tr><tr><td>Reto</td><td>Intento del Reto 2</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Lanzar con una mano y recibir con la otra, 10 veces seguidas sin fallo.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">03</span><span class="fs-fecha">18 feb</span><span class="fs-obj">Reto 3 — Intercambio con 2 objetos</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El intercambio de 2 objetos es la base técnica exacta de la cascada de 3: lanzar el segundo objeto justo cuando el primero llega a su punto más alto. Dominar este patrón hace que pasar a 3 objetos sea mucho más fácil.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Intercambio de 2 objetos, ritmo lento y controlado</td><td>20 min</td><td>Foco en el momento exacto del segundo lanzamiento.</td></tr><tr><td>Reto</td><td>Intento del Reto 3</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Completar el intercambio (lanzar el 2º cuando el 1º llega arriba) 8 de 10 veces.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">04</span><span class="fs-fecha">25 feb</span><span class="fs-obj">Reto 4 — Intercambio sostenido</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Repetir el intercambio varias veces seguidas sin que caiga nada exige que la trayectoria sea constante, no solo correcta una vez — es la antesala directa de la cascada de 3 objetos.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Repeticiones consecutivas del intercambio de 2 objetos</td><td>20 min</td><td>—</td></tr><tr><td>Reto</td><td>Intento del Reto 4</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Repetir el intercambio de 2 objetos 5 veces seguidas sin que caiga ninguno.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">05</span><span class="fs-fecha">04 mar</span><span class="fs-obj">Reto 5 — Cascada básica (3 objetos)</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> La cascada con 3 objetos es el patrón más clásico de malabares y la base de casi todas las progresiones posteriores. Las primeras veces se cae mucho — es parte normal del aprendizaje motor, no un fallo.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Introducción a la cascada de 3 objetos, ritmo lento</td><td>20 min</td><td>Tolerancia al error: recoger y seguir.</td></tr><tr><td>Reto</td><td>Intento del Reto 5</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Sostener el patrón de cascada al menos 6 lanzamientos seguidos.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">06</span><span class="fs-fecha">11 mar</span><span class="fs-obj">Reto 6 — Cascada consolidada</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Sostener la cascada muchos lanzamientos seguidos, no solo unos pocos, es lo que demuestra que el patrón ya está automatizado y no depende de la suerte.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Repeticiones de cascada, alargando la secuencia poco a poco</td><td>20 min</td><td>—</td></tr><tr><td>Reto</td><td>Intento del Reto 6</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Sostener la cascada al menos 15 lanzamientos seguidos.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">07</span><span class="fs-fecha">18 mar</span><span class="fs-obj">Reto 7 — Patrón de columnas</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> En el patrón de columnas cada mano lanza y recibe siempre su propio objeto, sin cruzar — un patrón derivado de la cascada que exige más control individual de cada mano por separado.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Introducción al patrón de columnas</td><td>20 min</td><td>Cada mano trabaja de forma independiente.</td></tr><tr><td>Reto</td><td>Intento del Reto 7</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Mantener el patrón de columnas al menos 8 lanzamientos.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">08</span><span class="fs-fecha">08 abr</span><span class="fs-obj">Reto 8 — Patrón de ducha</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> En la ducha, todos los objetos siguen una trayectoria circular lanzados siempre por la misma mano — un ritmo muy distinto al de la cascada, aunque se usen los mismos 3 objetos.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Introducción al patrón de ducha</td><td>20 min</td><td>Una mano lanza alto, la otra solo pasa el objeto.</td></tr><tr><td>Reto</td><td>Intento del Reto 8</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Mantener el patrón de ducha al menos 8 lanzamientos.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">09</span><span class="fs-fecha">15 abr</span><span class="fs-obj">Reto 9 — Recuperación tras fallo</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Saber recuperar un objeto caído sin parar del todo la secuencia es una habilidad tan importante como el patrón en sí — en una actuación real, nadie hace una cascada perfecta sin ningún fallo.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Práctica deliberada de recogida rápida durante la cascada</td><td>20 min</td><td>El objetivo es no perder el ritmo, no evitar el fallo.</td></tr><tr><td>Reto</td><td>Intento del Reto 9</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Dejar caer un objeto en plena cascada, recogerlo sin parar del todo, y continuar al menos 5 lanzamientos más.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">10</span><span class="fs-fecha">22 abr</span><span class="fs-obj">Reto 10 y cierre — Passing en parejas + exhibición</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El passing añade la dificultad de sincronizarse con el ritmo de otra persona, no solo con el propio — es el cierre natural del bloque y la base de la exhibición final.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de movilidad de muñeca y hombro + manipulación libre con un solo objeto para calentar la coordinación.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Introducción al passing en parejas, ritmo lento y hablado</td><td>15 min</td><td>Comunicación constante con el compañero.</td></tr><tr><td>Reto</td><td>Intento del Reto 10</td><td>15 min</td><td>—</td></tr><tr><td>Exhibición final</td><td>Cada alumno muestra el nivel alcanzado al resto del grupo</td><td>resto de la sesión</td><td>No es competición: es una demostración individual del propio progreso.</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Completar un intercambio de objetos con un compañero de al menos 6 pases seguidos sin que caiga nada.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de práctica libre relajada, sin presión de conseguir nada.</p>
+    <div class="cierre-nota">Última sesión del bloque: revisad con el profesor qué retos os faltan antes de que se cierre el registro del trimestre.</div>
+  </div>
+</details><h2 class="sesiones-title">Clasificación del grupo</h2>
+<div class="clasif-aviso">Se alimenta de la pestaña "Malabares" de tu hoja de cálculo de retos (<code>Registro_Retos_AFD.xlsx</code>), publicada en la Web como CSV. 10 retos = 10 puntos posibles. Ordenada por puntos y, en empate, por menos intentos totales.</div>
+<div id="clasif-malabares">Cargando clasificación…</div>
+<script>
+(function(){
+  const CSV_URL = "PEGA_AQUI_TU_URL_CSV_MALABARES"; // Archivo > Compartir > Publicar en la Web > pestaña Malabares > CSV
+  const RETOS = ["Reto 1", "Reto 2", "Reto 3", "Reto 4", "Reto 5", "Reto 6", "Reto 7", "Reto 8", "Reto 9", "Reto 10"];
+  const root = document.getElementById("clasif-malabares");
+
+  function parseCSV(text){
+    const rows = []; let row = [], field = "", inQuotes = false;
+    for (let i=0;i<text.length;i++){
+      const c = text[i];
+      if (inQuotes){
+        if (c === '"'){ if (text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; }
+        else field += c;
+      } else {
+        if (c === '"') inQuotes = true;
+        else if (c === ",") { row.push(field); field=""; }
+        else if (c === "\n" || c === "\r"){
+          if (c === "\r" && text[i+1]==="\n") i++;
+          row.push(field); field=""; rows.push(row); row=[];
+        } else field += c;
+      }
+    }
+    if (field.length || row.length){ row.push(field); rows.push(row); }
+    return rows.filter(r => r.length>1 || r[0] !== "");
+  }
+
+  function render(rows){
+    if (!rows.length){ root.innerHTML = '<p style="color:var(--ink-soft)">Todavía no hay datos registrados.</p>'; return; }
+    const header = rows[0].map(h => h.trim().toLowerCase());
+    const idxAlumno = header.indexOf("alumno"), idxReto = header.indexOf("reto"),
+          idxPuntos = header.indexOf("puntos"), idxIntento = header.indexOf("intento");
+    const datos = {};
+    for (let i=1;i<rows.length;i++){
+      const r = rows[i];
+      if (!r[idxAlumno]) continue;
+      const alumno = r[idxAlumno].trim();
+      const reto = (r[idxReto]||"").trim();
+      const puntos = parseFloat(r[idxPuntos]) || 0;
+      const intento = parseFloat(r[idxIntento]) || 0;
+      if (!datos[alumno]) datos[alumno] = { total:0, intentos:0, retos:{} };
+      datos[alumno].total += puntos;
+      datos[alumno].intentos += intento;
+      datos[alumno].retos[reto] = true;
+    }
+    const lista = Object.keys(datos).map(a => Object.assign({alumno:a}, datos[a])).sort((a,b)=> b.total - a.total || a.intentos - b.intentos);
+    let html = '<table class="cal-table clasif-tabla"><thead><tr><th>#</th><th>Alumno</th><th>Progreso</th><th>Retos</th><th>Intentos totales</th></tr></thead><tbody>';
+    lista.forEach((d,i)=>{
+      const dots = RETOS.map((r,ri) => `<span class="reto-dot ${d.retos[r] ? "on" : ""}" title="${r}">${ri+1}</span>`).join("");
+      html += `<tr><td>${i+1}</td><td>${d.alumno}</td><td><div class="reto-dots">${dots}</div></td><td><strong>${d.total}/10</strong></td><td>${d.intentos || "—"}</td></tr>`;
+    });
+    html += "</tbody></table>";
+    root.innerHTML = html;
+  }
+
+  if (!CSV_URL || CSV_URL.indexOf("PEGA_AQUI") !== -1){
+    root.innerHTML = '<p style="color:var(--ink-soft)">Clasificación aún no conectada: pega la URL publicada de la hoja de cálculo en este archivo (busca <code>CSV_URL</code>) para activarla.</p>';
+  } else {
+    fetch(CSV_URL).then(r => r.text()).then(t => render(parseCSV(t))).catch(() => {
+      root.innerHTML = '<p style="color:var(--ink-soft)">No se ha podido cargar la clasificación. Comprueba que la hoja sigue publicada en la Web.</p>';
+    });
+  }
+})();
+</script>
+        <div class="tu-turno">
+          <h2>Tu turno</h2>
+          <p>Espacio para entregas y sugerencias de "Malabares". Esta parte se activará en la Fase 2 (entregas con feedback del profesor); de momento puedes escribir aquí una nota para ti — no se guarda todavía.</p>
+          <textarea class="sugerencia" placeholder="Escribe una sugerencia, duda o borrador de tu entrega…"></textarea>
+          <div class="turno-actions">
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar entrega</button>
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar sugerencia</button>
+          </div>
+        </div>
+      </div>
+    </div></div></main>
+<footer class="site-footer"><div class="wrap">
+  Actividades Físico Deportivas · 2º Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Colegio Santa María la Blanca (Madrid)
+</div></footer>
+</body></html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pickleball · AFD 2º Bachillerato</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --ink:#16232B; --ink-soft:#3C4A52; --paper:#F1F3EF; --paper-raise:#E4E7E0; --line:#C9CDC6;
+  --cinder:#D64545; --track:#3B6FA5; --lane:#2F7A5E; --bib:#C98A1F; --garnet:#7A1F2B;
+  --font-display:'Bebas Neue','Arial Narrow',sans-serif; --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;} img{max-width:100%;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.site-header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:40;}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);}
+.brand .crest{width:10px;height:24px;background:var(--garnet);display:inline-block;transform:skewX(-8deg);}
+.brand-name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:10px;margin-left:2px;}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.main-nav a{font-family:var(--font-display);font-size:16px;letter-spacing:.5px;padding:8px 12px;text-decoration:none;color:var(--ink-soft);border-bottom:3px solid transparent;}
+.main-nav a:hover,.main-nav a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.season{padding:34px 0 26px;border-bottom:1px solid var(--line);}
+.season h1{font-family:var(--font-display);font-size:44px;letter-spacing:.5px;margin:0 0 4px;line-height:.95;}
+.season p.lede{margin:0 0 26px;color:var(--ink-soft);max-width:60ch;}
+.track-strip{display:flex;flex-direction:column;gap:10px;}
+.lane-row{display:flex;align-items:center;gap:14px;}
+.lane-label{width:78px;flex:0 0 auto;font-family:var(--font-display);font-size:15px;color:var(--ink-soft);text-align:right;}
+.lane-track{flex:1;height:14px;background:var(--paper-raise);border-radius:7px;position:relative;overflow:hidden;}
+.lane-fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;}
+.lane-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--paper);border:2px solid var(--ink);}
+.lane-dot.off{background:var(--line);border-color:var(--line);}
+.season-meta{display:flex;gap:26px;margin-top:18px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
+.season-meta b{color:var(--ink);font-weight:600;}
+.section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.4px;margin:40px 0 16px;}
+.trim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+.trim-card{border:1px solid var(--ink);border-radius:6px;padding:20px;text-decoration:none;color:var(--ink);background:var(--paper);}
+.trim-card .num{font-family:var(--font-display);font-size:46px;line-height:1;}
+.trim-card .name{font-weight:600;margin:6px 0 10px;}
+.trim-card .range{font-size:12.5px;color:var(--ink-soft);}
+.trim-card.t1{border-top:5px solid var(--cinder);} .trim-card.t2{border-top:5px solid var(--track);} .trim-card.t3{border-top:5px solid var(--lane);}
+.bloque-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.bloque-card{border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none;color:var(--ink);background:#fff;display:flex;flex-direction:column;gap:8px;}
+.bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
+.bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+.bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
+.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
+.side-nav{position:sticky;top:78px;}
+.side-nav .group{margin-bottom:20px;}
+.side-nav .group-title{font-family:var(--font-display);font-size:13px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:6px;}
+.side-nav a{display:block;padding:6px 0;font-size:14px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent;padding-left:10px;}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.bloque-header{margin-bottom:18px;}
+.bloque-eyebrow{display:inline-block;font-family:var(--font-display);font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#fff;padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.bloque-header h1{font-family:var(--font-display);font-size:40px;margin:0 0 6px;letter-spacing:.4px;}
+.bloque-header .sub{color:var(--ink-soft);font-size:15px;max-width:65ch;}
+.theory{max-width:72ch;}
+.theory h1{display:none;}
+.theory h2{font-size:21px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.theory p{margin:0 0 14px;} .theory ul,.theory ol{margin:0 0 14px;padding-left:22px;} .theory li{margin-bottom:4px;}
+.theory strong{font-weight:700;}
+.theory blockquote{margin:0 0 18px;padding:12px 16px;background:var(--paper-raise);border-left:3px solid var(--ink);font-size:14.5px;}
+.theory table{border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px;}
+.theory th,.theory td{border:1px solid var(--line);padding:7px 10px;text-align:left;}
+.theory th{background:var(--paper-raise);font-weight:600;}
+.sesiones-title{font-family:var(--font-display);font-size:20px;margin:40px 0 12px;letter-spacing:.4px;}
+.sesiones-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;}
+.bib-card{flex:0 0 auto;width:132px;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;background:#fff;}
+.bib-card .n{font-family:var(--font-display);font-size:28px;line-height:1;}
+.bib-card .fecha{font-size:11.5px;color:var(--ink-soft);margin:2px 0 6px;}
+.bib-card .detalle{font-size:12px;line-height:1.3;}
+.tu-turno{margin-top:46px;border:1px dashed var(--ink-soft);border-radius:6px;padding:22px 24px;background:#fff;}
+.tu-turno h2{font-family:var(--font-display);font-size:20px;margin:0 0 6px;letter-spacing:.4px;border:none;padding:0;}
+.tu-turno p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+.turno-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:not-allowed;opacity:.45;}
+textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font-size:14px;border:1px solid var(--line);border-radius:3px;padding:10px;margin-bottom:12px;resize:vertical;}
+.cal-filtros{display:flex;gap:8px;margin:18px 0 22px;flex-wrap:wrap;}
+.cal-filtros button{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+.cal-filtros button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.cal-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.cal-table th{text-align:left;font-family:var(--font-display);font-weight:400;letter-spacing:.4px;font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--ink);padding:8px 10px;}
+.cal-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.cal-table tr.off td{color:var(--ink-soft);font-style:italic;background:var(--paper-raise);}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;color:#fff;font-weight:600;}
+.clasif-aviso{background:var(--paper-raise);border-left:3px solid var(--track);padding:12px 16px;margin-bottom:16px;font-size:13.5px;}
+.clasif-tabla td:nth-child(n+3):nth-last-child(n+2){text-align:center;}
+.reto-dots{display:flex;gap:3px;flex-wrap:wrap;max-width:180px;}
+.reto-dot{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);font-size:9px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);background:#fff;}
+.reto-dot.on{background:var(--lane);border-color:var(--lane);color:#fff;font-weight:700;}
+.site-footer{border-top:2px solid var(--ink);margin-top:60px;padding:22px 0;font-size:12.5px;color:var(--ink-soft);}
+.rotacion-nota{background:var(--paper-raise);border-left:3px solid var(--bib);padding:14px 16px;margin-bottom:18px;font-size:13.5px;line-height:1.5;}
+.ficha-sesion{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:#fff;}
+.ficha-sesion summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;align-items:center;gap:14px;}
+.ficha-sesion summary::-webkit-details-marker{display:none;}
+.ficha-sesion summary::after{content:"+";margin-left:auto;font-family:var(--font-display);font-size:20px;color:var(--ink-soft);}
+.ficha-sesion[open] summary::after{content:"–";}
+.fs-n{font-family:var(--font-display);font-size:20px;color:var(--bib);width:34px;flex:0 0 auto;}
+.fs-fecha{font-size:12.5px;color:var(--ink-soft);width:60px;flex:0 0 auto;}
+.fs-obj{font-weight:600;font-size:14.5px;}
+.fs-body{padding:0 16px 18px;}
+.fs-calentamiento{font-size:13.5px;color:var(--ink-soft);margin:0 0 12px;}
+.fs-tabla{width:100%;border-collapse:collapse;font-size:13px;}
+.fs-tabla th,.fs-tabla td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+.fs-tabla th{background:var(--paper-raise);font-weight:600;font-size:12.5px;}
+.cierre-nota{margin-top:12px;padding:10px 14px;background:var(--paper-raise);border-left:3px solid var(--garnet);font-size:13px;}
+.concepto-dia{margin-bottom:14px;padding:12px 14px;background:#FBF3E4;border-left:3px solid var(--cinder);font-size:13.5px;line-height:1.5;}
+.meso-title{font-family:var(--font-display);font-size:17px;letter-spacing:.4px;margin:26px 0 10px;color:var(--ink-soft);}
+@media (max-width:880px){
+  .bloque-layout{grid-template-columns:1fr;} .side-nav{position:static;display:flex;overflow-x:auto;gap:18px;}
+  .side-nav .group{margin-bottom:0;flex:0 0 auto;} .trim-grid{grid-template-columns:1fr;} .main-nav{display:none;} .season h1{font-size:34px;}
+}
+</style></head><body>
+<header class="site-header"><div class="wrap bar">
+      <a class="brand" href="index.html"><span class="crest"></span><span class="brand-name">AFD</span>
+      <span class="brand-sub">2º Bachillerato · Colegio Santa María la Blanca</span></a>
+      <nav class="main-nav"><a href="index.html" class="">Inicio</a><a href="calendario.html" class="">Calendario</a></nav>
+    </div></header>
+<main><div class="wrap"><div class="bloque-layout">
+      <nav class="side-nav"><div class="group"><div class="group-title">Eje del curso</div><a href="01-fuerza.html" class="">Fuerza</a></div><div class="group"><div class="group-title">1er trimestre</div><a href="02-resistencia.html" class="">Resistencia</a><a href="03-deporte-profesor.html" class="">Deporte del profesor</a><a href="04-deporte-alumnos.html" class="">Deporte diseñado por alumnos</a></div><div class="group"><div class="group-title">2º trimestre</div><a href="05-natacion.html" class="">Natación</a><a href="06-pickleball.html" class="active">Pickleball</a></div><div class="group"><div class="group-title">3er trimestre</div><a href="07-hibrido.html" class="">Híbrido Fuerza-Resistencia</a><a href="08-malabares.html" class="">Malabares</a></div><div class="group"><a href="calendario.html">↳ Ver calendario completo</a></div></nav>
+      <div>
+        <div class="bloque-header">
+          <span class="bloque-eyebrow track">Trimestre 2</span>
+          <h1>Pickleball</h1><p class="sub">Deporte de raqueta por retos graduados: del saque básico a la liguilla interna.</p>
+        </div>
+        <div class="theory"><h1>Pickleball — Deporte por retos (2º Trimestre)</h1>
+<h2>1. Qué es el pickleball</h2>
+<p>El pickleball es un deporte de raqueta híbrido, nacido en Estados Unidos en los años 60, que combina elementos del tenis, el bádminton y el ping-pong. Se juega en una pista más pequeña que la de tenis, con palas rígidas (no cuerdas) y una pelota perforada similar a la de wiffle ball. Es uno de los deportes de raqueta de crecimiento más rápido a nivel mundial, entre otras razones porque su curva de aprendizaje inicial es mucho más rápida que la del tenis.</p>
+<h2>2. Material y pista</h2>
+<ul>
+<li><strong>Pista</strong>: 13,41 x 6,10 m (las mismas dimensiones que una pista de bádminton de dobles), dividida por una red de 91 cm de altura en el centro.</li>
+<li><strong>Zona de no-volea ("kitchen")</strong>: una franja de 2,13 m a cada lado de la red donde no se puede golpear la pelota de volea (sin que haya botado antes).</li>
+<li><strong>Pala</strong>: rígida, de material compuesto, más pequeña que una raqueta de tenis.</li>
+<li><strong>Pelota</strong>: perforada, similar a una pelota de wiffle ball, diseñada para tener un vuelo más lento y controlable.</li>
+</ul>
+<h2>3. Reglamento básico</h2>
+<ul>
+<li><strong>Saque</strong>: se realiza por debajo de la cintura, en diagonal, y debe botar antes de ser devuelto (regla del "doble bote": tanto el saque como la primera devolución deben botar antes de golpearse de volea).</li>
+<li><strong>Puntuación</strong>: solo puntúa el equipo que saca (en la modalidad clásica); los partidos suelen jugarse a 11 puntos con diferencia de 2.</li>
+<li><strong>Zona de no-volea</strong>: no se puede golpear de volea (sin bote previo) estando dentro de esta zona, ni pisarla durante o inmediatamente después de un golpe de volea.</li>
+</ul>
+<h2>4. Fundamentos técnicos</h2>
+<ol>
+<li><strong>Saque</strong>: golpe diagonal por debajo de la cintura, con trayectoria controlada.</li>
+<li><strong>Golpe de derecha y de revés</strong>: golpes de fondo, similares en concepto a otros deportes de raqueta.</li>
+<li><strong>Dink</strong>: golpe suave y controlado desde cerca de la red, pensado para mantener la pelota baja y dificultar el ataque del rival — es el golpe más característico y estratégicamente más importante del deporte.</li>
+<li><strong>Volea</strong>: golpe realizado sin bote previo, fuera de la zona de no-volea.</li>
+</ol>
+<h2>5. Táctica básica</h2>
+<ul>
+<li>El punto se suele decidir en la zona cercana a la red ("kitchen line"), no en el fondo de la pista: por eso el juego tiende a evolucionar desde golpes de fondo hacia intercambios de dink en la red.</li>
+<li>En dobles, la comunicación y la cobertura de espacios entre compañeros es clave.</li>
+<li>Un error común de iniciación es intentar golpes potentes constantemente; el pickleball premia el control y la colocación por encima de la potencia.</li>
+</ul>
+<h2>6. Los 10 retos de este bloque</h2>
+<p>El aprendizaje se organiza en 10 retos progresivos, cada uno con un criterio de superación objetivo — no hay ambigüedad sobre si se ha conseguido o no. Cada reto vale <strong>1 punto</strong>; el intento en el que se logra queda registrado como información (para ver la evolución de cada uno), pero no cambia la puntuación.</p>
+<ol>
+<li><strong>Saque legal</strong>: 5 saques diagonales legales (por debajo de la cintura) seguidos, dentro del cuadro de saque correcto.</li>
+<li><strong>Golpe de derecha</strong>: devolver 8 de 10 golpes de derecha dentro de la pista.</li>
+<li><strong>Golpe de revés</strong>: devolver 8 de 10 golpes de revés dentro de la pista.</li>
+<li><strong>Peloteo de fondo</strong>: mantener un peloteo de al menos 10 golpes seguidos entre dos jugadores, sin que la pelota salga o bote dos veces.</li>
+<li><strong>Dink controlado</strong>: 8 de 10 dinks que caigan dentro de la zona de no-volea del rival.</li>
+<li><strong>Volea básica</strong>: completar 8 de 10 voleas devueltas dentro de la pista.</li>
+<li><strong>Peloteo de dinks</strong>: mantener un intercambio de dinks de al menos 6 golpes seguidos en la red.</li>
+<li><strong>Transición fondo-red</strong>: avanzar de la línea de fondo a la zona de no-volea sin pisarla en volea, 3 veces seguidas en una jugada dirigida.</li>
+<li><strong>Punto de dobles</strong>: jugar un punto completo de dobles aplicando saque legal, doble bote y al menos un dink, sin faltas de reglamento.</li>
+<li><strong>Liguilla interna</strong>: ganar al menos un set de la liguilla interna del grupo.</li>
+</ol>
+<p>Podéis intentar un reto tantas veces como haga falta a lo largo del trimestre — lo importante es conseguirlo, no acertar a la primera.</p></div>
+        <h2 class="sesiones-title">Las 9 sesiones del trimestre — 10 retos</h2>
+        <p style="color:var(--ink-soft);font-size:14px;max-width:70ch;margin-top:-4px;">Cada sesión explica su reto del día antes de la clase. Haz clic para desplegar cada ficha.</p>
+        <details class="ficha-sesion">
+  <summary><span class="fs-n">01</span><span class="fs-fecha">05 nov</span><span class="fs-obj">Reto 1 y 2 — Saque y golpe de derecha</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El pickleball combina tenis, bádminton y ping-pong en una pista pequeña. El saque legal y el golpe de derecha son la base de todo lo demás: sin un saque limpio ni consistencia en el golpe de fondo, no se puede construir el resto del juego.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Explicación</td><td>Reglamento básico, pista, zona de no-volea, material</td><td>10 min</td><td>Primer contacto con el deporte.</td></tr><tr><td>Técnica</td><td>Práctica de saque diagonal</td><td>15 min</td><td>Trayectoria controlada, no potencia.</td></tr><tr><td>Técnica</td><td>Golpe de derecha contra pared o compañero</td><td>15 min</td><td>Consistencia antes que velocidad.</td></tr><tr><td>Reto</td><td>Intento del Reto 1 y Reto 2</td><td>10 min</td><td>Registrad el resultado en la hoja del profesor.</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> <strong>Reto 1:</strong> 5 saques diagonales legales (por debajo de la cintura) seguidos, dentro del cuadro de saque correcto. <strong>Reto 2:</strong> devolver 8 de 10 golpes de derecha dentro de la pista.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">02</span><span class="fs-fecha">12 nov</span><span class="fs-obj">Reto 3 — Golpe de revés</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El revés exige preparar pronto la pala y, muchas veces, cambiar de lado del cuerpo respecto a la derecha — es normal que al principio cueste más control. La clave está en la anticipación, no en la fuerza del golpe.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Golpe de revés contra pared o compañero</td><td>20 min</td><td>Preparación temprana de la pala.</td></tr><tr><td>Reto</td><td>Intento del Reto 3</td><td>10 min</td><td>—</td></tr><tr><td>Repesca</td><td>Intento de Retos 1-2 si no los tenéis aún</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> 8 de 10 golpes de revés dentro de la pista.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">03</span><span class="fs-fecha">19 nov</span><span class="fs-obj">Reto 4 — Peloteo de fondo</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Mantener un peloteo largo no depende de golpear fuerte, sino de colocar la pelota dentro de pista de forma consistente combinando derecha y revés — es la primera vez que unís ambos golpes en una situación real de juego.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Peloteo dirigido derecha/revés con el profesor marcando el ritmo</td><td>15 min</td><td>Prioridad: que la pelota no salga.</td></tr><tr><td>Reto</td><td>Intento del Reto 4, por parejas</td><td>20 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Mantener un peloteo de al menos 10 golpes seguidos entre dos jugadores, sin que la pelota salga o bote dos veces.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">04</span><span class="fs-fecha">26 nov</span><span class="fs-obj">Reto 5 — Dink controlado</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El dink es el golpe más característico del pickleball: un golpe suave y controlado cerca de la red que mantiene la pelota baja para dificultar el ataque del rival. Aquí la potencia juega en vuestra contra.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Explicación y demostración del dink</td><td>10 min</td><td>Golpe corto, muñeca firme, trayectoria baja.</td></tr><tr><td>Técnica</td><td>Práctica de dink por parejas cerca de la red</td><td>15 min</td><td>—</td></tr><tr><td>Reto</td><td>Intento del Reto 5</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> 8 de 10 dinks que caigan dentro de la zona de no-volea del rival.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">05</span><span class="fs-fecha">03 dic</span><span class="fs-obj">Reto 6 — Volea básica</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> La volea se juega sin dejar botar la pelota, siempre fuera de la zona de no-volea. Exige anticipación y reflejos, ya que el tiempo de reacción es menor que en un golpe de fondo.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Volea de control, alimentación suave del profesor</td><td>15 min</td><td>Pala adelantada, golpe corto.</td></tr><tr><td>Reto</td><td>Intento del Reto 6</td><td>15 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Completar 8 de 10 voleas devueltas dentro de la pista.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">06</span><span class="fs-fecha">10 dic</span><span class="fs-obj">Reto 7 — Peloteo de dinks</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Encadenar varios dinks seguidos con un compañero es donde de verdad se decide un punto en pickleball: la mayoría de los puntos a nivel intermedio se ganan o pierden en la red, no en el fondo de la pista.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Intercambio de dinks por parejas, sin puntuar</td><td>15 min</td><td>Constancia antes que ataque.</td></tr><tr><td>Reto</td><td>Intento del Reto 7</td><td>15 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Mantener un intercambio de dinks de al menos 6 golpes seguidos en la red.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">07</span><span class="fs-fecha">17 dic</span><span class="fs-obj">Reto 8 — Transición fondo-red</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Pasar del fondo a la red sin pisar la zona de no-volea en volea es una de las habilidades tácticas más importantes del pickleball: moverse hacia adelante en el momento adecuado, no antes ni después.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Técnica</td><td>Ejercicio de avance dirigido (golpe de fondo → avance → dink)</td><td>20 min</td><td>El profesor marca cuándo avanzar.</td></tr><tr><td>Reto</td><td>Intento del Reto 8</td><td>10 min</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Avanzar de la línea de fondo a la zona de no-volea sin pisarla en volea, 3 veces seguidas en una jugada dirigida.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">08</span><span class="fs-fecha">14 ene</span><span class="fs-obj">Reto 9 — Punto de dobles</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Ahora se integra todo lo trabajado en una situación real de juego con reglamento completo: saque legal, regla del doble bote, y aplicar el dink cuando corresponda.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Juego dirigido</td><td>Partidos de dobles cortos, reglamento completo</td><td>25 min</td><td>El profesor observa y valida el reto durante el juego.</td></tr><tr><td>Reto</td><td>Intento del Reto 9</td><td>incluido en el juego</td><td>—</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Jugar un punto completo de dobles aplicando saque legal, doble bote y al menos un dink, sin faltas de reglamento.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">09</span><span class="fs-fecha">21 ene</span><span class="fs-obj">Reto 10 y cierre — Liguilla interna</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> La liguilla interna aplica todo el bloque en competición real contra compañeros de nivel similar — ganar un set exige combinar técnica, táctica y gestión de la presión del marcador.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 10 min: movilidad de muñeca, hombro y tobillo + peloteo suave sin puntuar para activar el golpeo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Bloque</th><th>Actividad</th><th>Duración</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Competición</td><td>Liguilla interna del grupo por parejas o individual</td><td>30 min</td><td>—</td></tr><tr><td>Repesca</td><td>Última oportunidad para intentar cualquier reto pendiente (1-9)</td><td>10 min</td><td>Apuntad en la hoja lo que consigáis hoy.</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Criterio del reto de hoy:</strong> Ganar al menos un set de la liguilla interna del grupo.</div>
+    <p class="fs-calentamiento"><strong>Cierre:</strong> 5 min de peloteo libre suave + comentario rápido en grupo de cómo ha ido.</p>
+    <div class="cierre-nota">Última sesión del bloque: revisad con el profesor qué retos os faltan antes de que se cierre el registro del trimestre.</div>
+  </div>
+</details><h2 class="sesiones-title">Clasificación del grupo</h2>
+<div class="clasif-aviso">Se alimenta de la pestaña "Pickleball" de tu hoja de cálculo de retos (<code>Registro_Retos_AFD.xlsx</code>), publicada en la Web como CSV. 10 retos = 10 puntos posibles. Ordenada por puntos y, en empate, por menos intentos totales.</div>
+<div id="clasif-pickleball">Cargando clasificación…</div>
+<script>
+(function(){
+  const CSV_URL = "PEGA_AQUI_TU_URL_CSV_PICKLEBALL"; // Archivo > Compartir > Publicar en la Web > pestaña Pickleball > CSV
+  const RETOS = ["Reto 1", "Reto 2", "Reto 3", "Reto 4", "Reto 5", "Reto 6", "Reto 7", "Reto 8", "Reto 9", "Reto 10"];
+  const root = document.getElementById("clasif-pickleball");
+
+  function parseCSV(text){
+    const rows = []; let row = [], field = "", inQuotes = false;
+    for (let i=0;i<text.length;i++){
+      const c = text[i];
+      if (inQuotes){
+        if (c === '"'){ if (text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; }
+        else field += c;
+      } else {
+        if (c === '"') inQuotes = true;
+        else if (c === ",") { row.push(field); field=""; }
+        else if (c === "\n" || c === "\r"){
+          if (c === "\r" && text[i+1]==="\n") i++;
+          row.push(field); field=""; rows.push(row); row=[];
+        } else field += c;
+      }
+    }
+    if (field.length || row.length){ row.push(field); rows.push(row); }
+    return rows.filter(r => r.length>1 || r[0] !== "");
+  }
+
+  function render(rows){
+    if (!rows.length){ root.innerHTML = '<p style="color:var(--ink-soft)">Todavía no hay datos registrados.</p>'; return; }
+    const header = rows[0].map(h => h.trim().toLowerCase());
+    const idxAlumno = header.indexOf("alumno"), idxReto = header.indexOf("reto"),
+          idxPuntos = header.indexOf("puntos"), idxIntento = header.indexOf("intento");
+    const datos = {};
+    for (let i=1;i<rows.length;i++){
+      const r = rows[i];
+      if (!r[idxAlumno]) continue;
+      const alumno = r[idxAlumno].trim();
+      const reto = (r[idxReto]||"").trim();
+      const puntos = parseFloat(r[idxPuntos]) || 0;
+      const intento = parseFloat(r[idxIntento]) || 0;
+      if (!datos[alumno]) datos[alumno] = { total:0, intentos:0, retos:{} };
+      datos[alumno].total += puntos;
+      datos[alumno].intentos += intento;
+      datos[alumno].retos[reto] = true;
+    }
+    const lista = Object.keys(datos).map(a => Object.assign({alumno:a}, datos[a])).sort((a,b)=> b.total - a.total || a.intentos - b.intentos);
+    let html = '<table class="cal-table clasif-tabla"><thead><tr><th>#</th><th>Alumno</th><th>Progreso</th><th>Retos</th><th>Intentos totales</th></tr></thead><tbody>';
+    lista.forEach((d,i)=>{
+      const dots = RETOS.map((r,ri) => `<span class="reto-dot ${d.retos[r] ? "on" : ""}" title="${r}">${ri+1}</span>`).join("");
+      html += `<tr><td>${i+1}</td><td>${d.alumno}</td><td><div class="reto-dots">${dots}</div></td><td><strong>${d.total}/10</strong></td><td>${d.intentos || "—"}</td></tr>`;
+    });
+    html += "</tbody></table>";
+    root.innerHTML = html;
+  }
+
+  if (!CSV_URL || CSV_URL.indexOf("PEGA_AQUI") !== -1){
+    root.innerHTML = '<p style="color:var(--ink-soft)">Clasificación aún no conectada: pega la URL publicada de la hoja de cálculo en este archivo (busca <code>CSV_URL</code>) para activarla.</p>';
+  } else {
+    fetch(CSV_URL).then(r => r.text()).then(t => render(parseCSV(t))).catch(() => {
+      root.innerHTML = '<p style="color:var(--ink-soft)">No se ha podido cargar la clasificación. Comprueba que la hoja sigue publicada en la Web.</p>';
+    });
+  }
+})();
+</script>
+        <div class="tu-turno">
+          <h2>Tu turno</h2>
+          <p>Espacio para entregas y sugerencias de "Pickleball". Esta parte se activará en la Fase 2 (entregas con feedback del profesor); de momento puedes escribir aquí una nota para ti — no se guarda todavía.</p>
+          <textarea class="sugerencia" placeholder="Escribe una sugerencia, duda o borrador de tu entrega…"></textarea>
+          <div class="turno-actions">
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar entrega</button>
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar sugerencia</button>
+          </div>
+        </div>
+      </div>
+    </div></div></main>
+<footer class="site-footer"><div class="wrap">
+  Actividades Físico Deportivas · 2º Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Colegio Santa María la Blanca (Madrid)
+</div></footer>
+</body></html>
