@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuerza · AFD 2º Bachillerato</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --ink:#16232B; --ink-soft:#3C4A52; --paper:#F1F3EF; --paper-raise:#E4E7E0; --line:#C9CDC6;
+  --cinder:#D64545; --track:#3B6FA5; --lane:#2F7A5E; --bib:#C98A1F; --garnet:#7A1F2B;
+  --font-display:'Bebas Neue','Arial Narrow',sans-serif; --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;} img{max-width:100%;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.site-header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:40;}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);}
+.brand .crest{width:10px;height:24px;background:var(--garnet);display:inline-block;transform:skewX(-8deg);}
+.brand-name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:10px;margin-left:2px;}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.main-nav a{font-family:var(--font-display);font-size:16px;letter-spacing:.5px;padding:8px 12px;text-decoration:none;color:var(--ink-soft);border-bottom:3px solid transparent;}
+.main-nav a:hover,.main-nav a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.season{padding:34px 0 26px;border-bottom:1px solid var(--line);}
+.season h1{font-family:var(--font-display);font-size:44px;letter-spacing:.5px;margin:0 0 4px;line-height:.95;}
+.season p.lede{margin:0 0 26px;color:var(--ink-soft);max-width:60ch;}
+.track-strip{display:flex;flex-direction:column;gap:10px;}
+.lane-row{display:flex;align-items:center;gap:14px;}
+.lane-label{width:78px;flex:0 0 auto;font-family:var(--font-display);font-size:15px;color:var(--ink-soft);text-align:right;}
+.lane-track{flex:1;height:14px;background:var(--paper-raise);border-radius:7px;position:relative;overflow:hidden;}
+.lane-fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;}
+.lane-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--paper);border:2px solid var(--ink);}
+.lane-dot.off{background:var(--line);border-color:var(--line);}
+.season-meta{display:flex;gap:26px;margin-top:18px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
+.season-meta b{color:var(--ink);font-weight:600;}
+.section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.4px;margin:40px 0 16px;}
+.trim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+.trim-card{border:1px solid var(--ink);border-radius:6px;padding:20px;text-decoration:none;color:var(--ink);background:var(--paper);}
+.trim-card .num{font-family:var(--font-display);font-size:46px;line-height:1;}
+.trim-card .name{font-weight:600;margin:6px 0 10px;}
+.trim-card .range{font-size:12.5px;color:var(--ink-soft);}
+.trim-card.t1{border-top:5px solid var(--cinder);} .trim-card.t2{border-top:5px solid var(--track);} .trim-card.t3{border-top:5px solid var(--lane);}
+.bloque-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.bloque-card{border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none;color:var(--ink);background:#fff;display:flex;flex-direction:column;gap:8px;}
+.bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
+.bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+.bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
+.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
+.side-nav{position:sticky;top:78px;}
+.side-nav .group{margin-bottom:20px;}
+.side-nav .group-title{font-family:var(--font-display);font-size:13px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:6px;}
+.side-nav a{display:block;padding:6px 0;font-size:14px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent;padding-left:10px;}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.bloque-header{margin-bottom:18px;}
+.bloque-eyebrow{display:inline-block;font-family:var(--font-display);font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#fff;padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.bloque-header h1{font-family:var(--font-display);font-size:40px;margin:0 0 6px;letter-spacing:.4px;}
+.bloque-header .sub{color:var(--ink-soft);font-size:15px;max-width:65ch;}
+.theory{max-width:72ch;}
+.theory h1{display:none;}
+.theory h2{font-size:21px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.theory p{margin:0 0 14px;} .theory ul,.theory ol{margin:0 0 14px;padding-left:22px;} .theory li{margin-bottom:4px;}
+.theory strong{font-weight:700;}
+.theory blockquote{margin:0 0 18px;padding:12px 16px;background:var(--paper-raise);border-left:3px solid var(--ink);font-size:14.5px;}
+.theory table{border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px;}
+.theory th,.theory td{border:1px solid var(--line);padding:7px 10px;text-align:left;}
+.theory th{background:var(--paper-raise);font-weight:600;}
+.sesiones-title{font-family:var(--font-display);font-size:20px;margin:40px 0 12px;letter-spacing:.4px;}
+.sesiones-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;}
+.bib-card{flex:0 0 auto;width:132px;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;background:#fff;}
+.bib-card .n{font-family:var(--font-display);font-size:28px;line-height:1;}
+.bib-card .fecha{font-size:11.5px;color:var(--ink-soft);margin:2px 0 6px;}
+.bib-card .detalle{font-size:12px;line-height:1.3;}
+.tu-turno{margin-top:46px;border:1px dashed var(--ink-soft);border-radius:6px;padding:22px 24px;background:#fff;}
+.tu-turno h2{font-family:var(--font-display);font-size:20px;margin:0 0 6px;letter-spacing:.4px;border:none;padding:0;}
+.tu-turno p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+.turno-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:not-allowed;opacity:.45;}
+textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font-size:14px;border:1px solid var(--line);border-radius:3px;padding:10px;margin-bottom:12px;resize:vertical;}
+.cal-filtros{display:flex;gap:8px;margin:18px 0 22px;flex-wrap:wrap;}
+.cal-filtros button{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+.cal-filtros button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.cal-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.cal-table th{text-align:left;font-family:var(--font-display);font-weight:400;letter-spacing:.4px;font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--ink);padding:8px 10px;}
+.cal-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.cal-table tr.off td{color:var(--ink-soft);font-style:italic;background:var(--paper-raise);}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;color:#fff;font-weight:600;}
+.site-footer{border-top:2px solid var(--ink);margin-top:60px;padding:22px 0;font-size:12.5px;color:var(--ink-soft);}
+.rotacion-nota{background:var(--paper-raise);border-left:3px solid var(--bib);padding:14px 16px;margin-bottom:18px;font-size:13.5px;line-height:1.5;}
+.ficha-sesion{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:#fff;}
+.ficha-sesion summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;align-items:center;gap:14px;}
+.ficha-sesion summary::-webkit-details-marker{display:none;}
+.ficha-sesion summary::after{content:"+";margin-left:auto;font-family:var(--font-display);font-size:20px;color:var(--ink-soft);}
+.ficha-sesion[open] summary::after{content:"–";}
+.fs-n{font-family:var(--font-display);font-size:20px;color:var(--bib);width:34px;flex:0 0 auto;}
+.fs-fecha{font-size:12.5px;color:var(--ink-soft);width:60px;flex:0 0 auto;}
+.fs-obj{font-weight:600;font-size:14.5px;}
+.fs-body{padding:0 16px 18px;}
+.fs-calentamiento{font-size:13.5px;color:var(--ink-soft);margin:0 0 12px;}
+.fs-tabla{width:100%;border-collapse:collapse;font-size:13px;}
+.fs-tabla th,.fs-tabla td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+.fs-tabla th{background:var(--paper-raise);font-weight:600;font-size:12.5px;}
+.cierre-nota{margin-top:12px;padding:10px 14px;background:var(--paper-raise);border-left:3px solid var(--garnet);font-size:13px;}
+.meso-title{font-family:var(--font-display);font-size:17px;letter-spacing:.4px;margin:26px 0 10px;color:var(--ink-soft);}
+@media (max-width:880px){
+  .bloque-layout{grid-template-columns:1fr;} .side-nav{position:static;display:flex;overflow-x:auto;gap:18px;}
+  .side-nav .group{margin-bottom:0;flex:0 0 auto;} .trim-grid{grid-template-columns:1fr;} .main-nav{display:none;} .season h1{font-size:34px;}
+}
+</style></head><body>
+<header class="site-header"><div class="wrap bar">
+      <a class="brand" href="index.html"><span class="crest"></span><span class="brand-name">AFD</span>
+      <span class="brand-sub">2º Bachillerato · Colegio Santa María la Blanca</span></a>
+      <nav class="main-nav"><a href="index.html" class="">Inicio</a><a href="calendario.html" class="">Calendario</a></nav>
+    </div></header>
+<main><div class="wrap"><div class="bloque-layout">
+      <nav class="side-nav"><div class="group"><div class="group-title">Eje del curso</div><a href="01-fuerza.html" class="active">Fuerza</a></div><div class="group"><div class="group-title">1er trimestre</div><a href="02-resistencia.html" class="">Resistencia</a><a href="03-deporte-profesor.html" class="">Deporte del profesor</a><a href="04-deporte-alumnos.html" class="">Deporte diseñado por alumnos</a></div><div class="group"><div class="group-title">2º trimestre</div><a href="05-natacion.html" class="">Natación</a><a href="06-pickleball.html" class="">Pickleball</a></div><div class="group"><div class="group-title">3er trimestre</div><a href="07-hibrido.html" class="">Híbrido Fuerza-Resistencia</a><a href="08-malabares.html" class="">Malabares</a></div><div class="group"><a href="calendario.html">↳ Ver calendario completo</a></div></nav>
+      <div>
+        <div class="bloque-header">
+          <span class="bloque-eyebrow bib">Eje transversal</span>
+          <h1>Fuerza</h1><p class="sub">Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
+        </div>
+        <div class="theory"><h1>Fuerza — Eje transversal del curso</h1>
+<h2>Por qué la Fuerza está presente los tres trimestres</h2>
+<p>La fuerza es la capacidad física básica que más rápido responde al entrenamiento sistemático y, a la vez, la que exige más tiempo de adaptación segura. Por eso no se trabaja como un bloque cerrado de unas pocas semanas, sino como un <strong>proceso continuo de todo el curso</strong>, dividido en tres mesociclos con un objetivo propio cada uno.</p>
+<h2>1. ¿Qué es la fuerza?</h2>
+<p>En términos fisiológicos, la fuerza es la capacidad del sistema neuromuscular para generar tensión y vencer, igualar o soportar una resistencia externa. No es una única cualidad, sino un continuo con distintas manifestaciones:</p>
+<table>
+<thead>
+<tr>
+<th>Manifestación</th>
+<th>Qué es</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fuerza máxima</strong></td>
+<td>La mayor tensión que el músculo puede generar en una contracción voluntaria</td>
+<td>Levantar la carga más pesada posible en una repetición</td>
+</tr>
+<tr>
+<td><strong>Fuerza-hipertrofia</strong></td>
+<td>Trabajo con cargas moderadas-altas y volumen medio, orientado a aumentar la sección transversal del músculo</td>
+<td>3-4 series de 8-12 repeticiones</td>
+</tr>
+<tr>
+<td><strong>Fuerza-resistencia</strong></td>
+<td>Capacidad de mantener niveles de fuerza durante un tiempo prolongado</td>
+<td>Circuitos, series largas con cargas ligeras</td>
+</tr>
+<tr>
+<td><strong>Fuerza-potencia</strong></td>
+<td>Capacidad de generar la máxima fuerza en el menor tiempo posible</td>
+<td>Saltos, lanzamientos, gestos explosivos</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Principios del entrenamiento de fuerza</h2>
+<ul>
+<li><strong>Sobrecarga progresiva</strong>: el estímulo debe superar ligeramente lo que el cuerpo ya tolera para generar adaptación. Sin progresión no hay mejora.</li>
+<li><strong>Especificidad</strong>: el cuerpo se adapta a lo que se entrena; los patrones de movimiento trabajados determinan la mejora.</li>
+<li><strong>Individualización</strong>: cada persona parte de un nivel distinto; las cargas de referencia son personales, no comparables entre compañeros.</li>
+<li><strong>Reversibilidad</strong>: las adaptaciones se pierden si se deja de entrenar (de ahí la importancia de la continuidad a lo largo del curso, no solo en las semanas de "bloque cerrado").</li>
+<li><strong>Técnica antes que carga</strong>: siempre. Un gesto mal ejecutado con más peso no es progreso, es riesgo.</li>
+</ul>
+<h2>3. Patrones de movimiento fundamentales</h2>
+<p>Todo el trabajo de fuerza del curso se organiza en torno a cinco patrones de movimiento, no a "ejercicios sueltos":</p>
+<ol>
+<li><strong>Sentadilla (dominante de rodilla)</strong>: sentadilla goblet, sentadilla con barra, prensa.</li>
+<li><strong>Bisagra de cadera (dominante de cadera)</strong>: peso muerto rumano, hip thrust.</li>
+<li><strong>Empuje</strong> (horizontal y vertical): press banca, press militar, flexiones.</li>
+<li><strong>Tracción</strong> (horizontal y vertical): remo, jalón, dominadas asistidas.</li>
+<li><strong>Core / control del tronco</strong>: plancha, anti-rotación, trabajo de estabilidad.</li>
+</ol>
+<p>Entender estos patrones permite reconocer que un mismo movimiento se puede ejecutar con distinto material (barra, mancuerna, máquina, peso corporal) y que lo que importa es el patrón, no el aparato concreto.</p>
+<h2>4. Variables del entrenamiento</h2>
+<ul>
+<li><strong>Series y repeticiones</strong>: determinan si el estímulo es más orientado a fuerza máxima (pocas repeticiones, cargas altas), hipertrofia (repeticiones medias) o resistencia muscular (repeticiones altas, cargas bajas).</li>
+<li><strong>Descanso entre series</strong>: más descanso permite recuperar más fuerza para la siguiente serie; menos descanso genera más fatiga acumulada y trabajo metabólico.</li>
+<li><strong>Intensidad</strong>: en vez de trabajar con el 1RM real (desaconsejado en edades de crecimiento por el riesgo asociado a levantar la carga máxima absoluta), en esta asignatura se usan:</li>
+<li><strong>Tests submáximos</strong>: se estima la capacidad de fuerza a partir de un peso que se puede mover con buena técnica varias repeticiones, sin llegar al fallo.</li>
+<li><strong>RPE / RIR</strong> (percepción subjetiva del esfuerzo / repeticiones en reserva): una escala personal para regular la carga según cómo se siente cada uno ese día, más segura y más útil a largo plazo que perseguir un número fijo.</li>
+</ul>
+<h2>5. La periodización del curso</h2>
+<table>
+<thead>
+<tr>
+<th>Mesociclo</th>
+<th>Cuándo</th>
+<th>Objetivo</th>
+<th>Características</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Adaptación anatómica</strong></td>
+<td>1er trimestre</td>
+<td>Aprender la técnica correcta de los 5 patrones, tolerar el trabajo de gimnasio</td>
+<td>Cargas bajas, foco total en técnica, repeticiones medias-altas</td>
+</tr>
+<tr>
+<td><strong>2 — Hipertrofia / Fuerza</strong></td>
+<td>2º trimestre</td>
+<td>Aumentar la capacidad de generar fuerza con cargas más exigentes</td>
+<td>Cargas moderadas-altas, ejercicios multiarticulares más complejos</td>
+</tr>
+<tr>
+<td><strong>3 — Fuerza-potencia y cierre</strong></td>
+<td>3er trimestre</td>
+<td>Consolidar la fuerza ganada y aplicarla de forma explosiva; cerrar el proceso anual</td>
+<td>Cargas altas controladas + trabajo de potencia (saltos, lanzamientos ligeros)</td>
+</tr>
+</tbody>
+</table>
+<h2>6. Seguridad en el gimnasio</h2>
+<ul>
+<li>Calentamiento específico antes de cualquier carga.</li>
+<li>Uso correcto del material: devolver las cargas a su sitio, no dejar discos o mancuernas en el suelo de paso.</li>
+<li>Nunca se trabaja con cargas máximas sin supervisión directa del profesor.</li>
+<li>Ante cualquier molestia articular (no muscular), se para el ejercicio y se avisa.</li>
+<li>El calzado y la ropa deben permitir libertad de movimiento y agarre seguro.</li>
+</ul>
+<h2>7. Cómo leer tu propia progresión</h2>
+<p>Al final de cada mesociclo repites el test submáximo inicial. Comparar los tres resultados del curso (septiembre, enero, marzo/abril) es el propio contenido de aprendizaje: entender que la fuerza no mejora de forma lineal cada semana, que hay mesetas, y que la técnica siempre debe mantenerse aunque la carga suba. El informe final de progresión anual (tercer trimestre) consiste precisamente en interpretar esa curva personal, no solo en registrarla.</p></div>
+        <h2 class="sesiones-title">Las 19 sesiones del curso — circuito de 6 estaciones</h2>
+        <p style="color:var(--ink-soft);font-size:14px;max-width:70ch;margin-top:-4px;">Multipower · Extensión de cuádriceps · Máquina de pecho · Jalón (polea alta + banco) · Polea regulable · Mancuernas y suelo. Haz clic en cada sesión para desplegar la ficha completa.</p>
+        <h3 class="meso-title">Mesociclo 1 · Adaptación anatómica (sesiones 1-6)</h3>
+        <details class="ficha-sesion">
+  <summary><span class="fs-n">01</span><span class="fs-fecha">15 sep</span><span class="fs-obj">Presentación y test de referencia</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio suave (bici o cuerda) + movilidad de cadera, hombro y tobillo + 1 serie sin carga del primer patrón del día.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>2×15</td><td>Carga muy ligera</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas + plancha</td><td>2×10 + 2×20 seg</td><td>RDL ligero, foco en bisagra de cadera, no en rango</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><div class="rotacion-nota">
+<strong>Cómo se organiza cada sesión (6 estaciones, parejas rotando):</strong>
+Formad 6 parejas (algún trío si sois 11-12). Cada pareja empieza en una estación distinta
+y rota a la siguiente cada vez que completa su serie asignada, en el mismo orden (E1→E2→E3→E4→E5→E6→E1...).
+Dentro de la pareja: uno hace la serie, el otro cuenta repeticiones y corrige técnica — luego cambiáis.
+Así nunca coincidís más de 2 personas por máquina.
+</div><br><strong>Test submáximo de referencia</strong> en E1 (sentadilla), E3 (press de pecho), E5 (remo) y E6 (peso muerto rumano): buscad una carga con la que hagáis 10-12 repeticiones con buena técnica, sin llegar al fallo. Anotadla en vuestro porfolio — es el punto de partida del curso.</div>
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">02</span><span class="fs-fecha">29 sep</span><span class="fs-obj">Consolidación técnica 1/4</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio suave (bici o cuerda) + movilidad de cadera, hombro y tobillo + 1 serie sin carga del primer patrón del día.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>2×15</td><td>Carga muy ligera</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>2×14</td><td>Barra sola / mínima — foco 100% técnica</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas + plancha</td><td>2×10 + 2×20 seg</td><td>RDL ligero, foco en bisagra de cadera, no en rango</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">03</span><span class="fs-fecha">06 oct</span><span class="fs-obj">Consolidación técnica 2/4</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio suave (bici o cuerda) + movilidad de cadera, hombro y tobillo + 1 serie sin carga del primer patrón del día.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>3×12</td><td>Ligera-moderada</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas + plancha</td><td>3×10 + 3×30 seg</td><td>RDL ligero, foco en bisagra de cadera, no en rango</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">04</span><span class="fs-fecha">13 oct</span><span class="fs-obj">Consolidación técnica 3/4</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio suave (bici o cuerda) + movilidad de cadera, hombro y tobillo + 1 serie sin carga del primer patrón del día.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>3×12</td><td>Ligera-moderada</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas + plancha</td><td>3×10 + 3×30 seg</td><td>RDL ligero, foco en bisagra de cadera, no en rango</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">05</span><span class="fs-fecha">20 oct</span><span class="fs-obj">Consolidación técnica 4/4</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio suave (bici o cuerda) + movilidad de cadera, hombro y tobillo + 1 serie sin carga del primer patrón del día.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>3×12</td><td>Ligera-moderada</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas + plancha</td><td>3×10 + 3×30 seg</td><td>RDL ligero, foco en bisagra de cadera, no en rango</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">06</span><span class="fs-fecha">27 oct</span><span class="fs-obj">Cierre del mesociclo 1</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio suave (bici o cuerda) + movilidad de cadera, hombro y tobillo + 1 serie sin carga del primer patrón del día.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>3×12</td><td>Ligera-moderada</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>3×12</td><td>Ligera — solo sube si la técnica es sólida</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas + plancha</td><td>3×10 + 3×30 seg</td><td>RDL ligero, foco en bisagra de cadera, no en rango</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Cierre parcial:</strong> repetid el test de la sesión 1 en E1, E3, E5 y E6. Comparad con vuestro registro de septiembre y anotad la carga de salida para el mesociclo 2.</div>
+  </div>
+</details>
+        <h3 class="meso-title">Mesociclo 2 · Hipertrofia / Fuerza (sesiones 7-12)</h3>
+        <details class="ficha-sesion">
+  <summary><span class="fs-n">07</span><span class="fs-fecha">10 nov</span><span class="fs-obj">Hipertrofia / fuerza 1/6</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio + movilidad específica de hombro y cadera + 1-2 series de aproximación con carga creciente en el primer ejercicio de la estación E1.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>3×10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>3×12</td><td>Sube carga progresivamente</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>3×10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>3×10</td><td>Alterna agarre para variar el estímulo</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>3×10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas (hasta 16 kg) + core anti-rotación</td><td>3×10 + 3×12</td><td>Sube de mancuernas cuando domines la técnica con las actuales</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">08</span><span class="fs-fecha">17 nov</span><span class="fs-obj">Hipertrofia / fuerza 2/6</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio + movilidad específica de hombro y cadera + 1-2 series de aproximación con carga creciente en el primer ejercicio de la estación E1.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Press militar</td><td>3×10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>3×12</td><td>Sube carga progresivamente</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>3×10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre estrecho, supino)</td><td>3×10</td><td>Alterna agarre para variar el estímulo</td></tr><tr><td>5 · Polea regulable</td><td>Face pull (salud de hombro)</td><td>3×15</td><td>Face pull: carga ligera, foco en control escapular</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas (hasta 16 kg) + core anti-rotación</td><td>3×10 + 3×12</td><td>Sube de mancuernas cuando domines la técnica con las actuales</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">09</span><span class="fs-fecha">24 nov</span><span class="fs-obj">Hipertrofia / fuerza 3/6</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio + movilidad específica de hombro y cadera + 1-2 series de aproximación con carga creciente en el primer ejercicio de la estación E1.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>4×10</td><td>Sube carga progresivamente</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>4×8-10</td><td>Alterna agarre para variar el estímulo</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas (hasta 16 kg) + core anti-rotación</td><td>4×10 + 3×12</td><td>Sube de mancuernas cuando domines la técnica con las actuales</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">10</span><span class="fs-fecha">01 dic</span><span class="fs-obj">Hipertrofia / fuerza 4/6</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio + movilidad específica de hombro y cadera + 1-2 series de aproximación con carga creciente en el primer ejercicio de la estación E1.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Press militar</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>4×10</td><td>Sube carga progresivamente</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre estrecho, supino)</td><td>4×8-10</td><td>Alterna agarre para variar el estímulo</td></tr><tr><td>5 · Polea regulable</td><td>Face pull (salud de hombro)</td><td>3×15</td><td>Face pull: carga ligera, foco en control escapular</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas (hasta 16 kg) + core anti-rotación</td><td>4×10 + 3×12</td><td>Sube de mancuernas cuando domines la técnica con las actuales</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">11</span><span class="fs-fecha">15 dic</span><span class="fs-obj">Hipertrofia / fuerza 5/6</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio + movilidad específica de hombro y cadera + 1-2 series de aproximación con carga creciente en el primer ejercicio de la estación E1.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>4×10</td><td>Sube carga progresivamente</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre ancho)</td><td>4×8-10</td><td>Alterna agarre para variar el estímulo</td></tr><tr><td>5 · Polea regulable</td><td>Remo horizontal a la polea</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas (hasta 16 kg) + core anti-rotación</td><td>4×10 + 3×12</td><td>Sube de mancuernas cuando domines la técnica con las actuales</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">12</span><span class="fs-fecha">12 ene</span><span class="fs-obj">Reevaluación de cargas (tras Navidad)</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> 5 min de cardio + movilidad específica de hombro y cadera + 1-2 series de aproximación con carga creciente en el primer ejercicio de la estación E1.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Press militar</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps</td><td>4×10</td><td>Sube carga progresivamente</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho</td><td>4×8-10</td><td>Moderada-alta, sube respecto a la sesión anterior si completaste todas las series</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón al pecho (agarre estrecho, supino)</td><td>4×8-10</td><td>Alterna agarre para variar el estímulo</td></tr><tr><td>5 · Polea regulable</td><td>Face pull (salud de hombro)</td><td>3×15</td><td>Face pull: carga ligera, foco en control escapular</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano con mancuernas (hasta 16 kg) + core anti-rotación</td><td>4×10 + 3×12</td><td>Sube de mancuernas cuando domines la técnica con las actuales</td></tr></tbody>
+    </table>
+    <div class="cierre-nota">Antes de la serie de trabajo, haced una primera serie de tanteo en cada estación para reajustar la carga tras el parón de Navidad. Esa carga reajustada es la que usaréis como base del mesociclo 3.</div>
+  </div>
+</details>
+        <h3 class="meso-title">Mesociclo 3 · Fuerza-potencia y cierre (sesiones 13-19)</h3>
+        <details class="ficha-sesion">
+  <summary><span class="fs-n">13</span><span class="fs-fecha">02 feb</span><span class="fs-obj">Fuerza-potencia 1/5</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">14</span><span class="fs-fecha">09 feb</span><span class="fs-obj">Fuerza-potencia 2/5</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">15</span><span class="fs-fecha">16 feb</span><span class="fs-obj">Fuerza-potencia 3/5</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">16</span><span class="fs-fecha">02 mar</span><span class="fs-obj">Fuerza-potencia 4/5</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">17</span><span class="fs-fecha">09 mar</span><span class="fs-obj">Fuerza-potencia 5/5</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">18</span><span class="fs-fecha">16 mar</span><span class="fs-obj">Pre-test</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    <div class="cierre-nota">Última sesión de carga antes del cierre. Anotad vuestras mejores series de E1, E3, E5 y E6 — son la referencia inmediata para la comparación final.</div>
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">19</span><span class="fs-fecha">30 mar</span><span class="fs-obj">CIERRE DEL EJE ANUAL</span></summary>
+  <div class="fs-body">
+    <p class="fs-calentamiento"><strong>Calentamiento (8-10 min):</strong> Calentamiento progresivo: 2-3 series de aproximación con carga creciente en el ejercicio principal de cada estación antes de la serie de trabajo — nada de series pesadas en frío.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Estación</th><th>Ejercicio</th><th>Series × reps</th><th>Carga / nota</th></tr></thead>
+      <tbody><tr><td>1 · Multipower</td><td>Sentadilla pesada</td><td>4-5×5</td><td>Carga alta controlada — técnica siempre por encima de la carga</td></tr><tr><td>2 · Extensión de cuádriceps</td><td>Extensión de cuádriceps (ritmo explosivo controlado)</td><td>3×8</td><td>Menos carga que en mesociclo 2, prioriza velocidad de ejecución</td></tr><tr><td>3 · Máquina de pecho</td><td>Press de pecho pesado</td><td>4-5×5</td><td>Carga alta controlada</td></tr><tr><td>4 · Jalón (polea alta + banco)</td><td>Jalón pesado + tracción rápida</td><td>4×6 + 2×6</td><td>Las 2 series finales, más rápidas y explosivas, con menos carga</td></tr><tr><td>5 · Polea regulable</td><td>Remo pesado + gesto explosivo a la polea</td><td>4×6 + 2×6</td><td>Últimas series: tirón rápido y controlado, no solo fuerza máxima</td></tr><tr><td>6 · Mancuernas + suelo</td><td>Peso muerto rumano pesado + multisaltos/skipping sin carga</td><td>4×6 + 3×15 seg</td><td>Multisaltos: contacto rápido con el suelo, sin buscar altura máxima</td></tr></tbody>
+    </table>
+    <div class="cierre-nota"><strong>Test final:</strong> repetid el test submáximo de la sesión 1 de septiembre en E1 (sentadilla), E3 (press de pecho), E5 (remo) y E6 (peso muerto rumano). Comparad los tres puntos del curso (septiembre / enero / ahora) y completad el informe de progresión anual — es la evaluación de cierre de todo el bloque de Fuerza.</div>
+  </div>
+</details>
+        <div class="tu-turno">
+          <h2>Tu turno</h2>
+          <p>Espacio para entregas y sugerencias de "Fuerza". Esta parte se activará en la Fase 2 (entregas con feedback del profesor); de momento puedes escribir aquí una nota para ti — no se guarda todavía.</p>
+          <textarea class="sugerencia" placeholder="Escribe una sugerencia, duda o borrador de tu entrega…"></textarea>
+          <div class="turno-actions">
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar entrega</button>
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar sugerencia</button>
+          </div>
+        </div>
+      </div>
+    </div></div></main>
+<footer class="site-footer"><div class="wrap">
+  Actividades Físico Deportivas · 2º Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Colegio Santa María la Blanca (Madrid)
+</div></footer>
+</body></html>
