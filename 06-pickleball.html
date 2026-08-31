@@ -346,7 +346,7 @@ textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font
     root.innerHTML = html;
   }
 
-  if (!CSV_URL || CSV_URL.indexOf("PEGA_AQUI") !== -1){
+  if (!CSV_URL || CSV_URL.indexOf("https://docs.google.com/spreadsheets/d/e/2PACX-1vTEgy_kF0w28yixDQBbupptgK_8t6JEFCdKKISp-2w_jfgmypkelxTe1iUOTVOhmA/pub?gid=1421284402&single=true&output=csv") !== -1){
     root.innerHTML = '<p style="color:var(--ink-soft)">Clasificación aún no conectada: pega la URL publicada de la hoja de cálculo en este archivo (busca <code>CSV_URL</code>) para activarla.</p>';
   } else {
     fetch(CSV_URL).then(r => r.text()).then(t => render(parseCSV(t))).catch(() => {
