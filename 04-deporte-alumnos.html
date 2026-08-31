@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deporte diseñado por alumnos · AFD 2º Bachillerato</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --ink:#16232B; --ink-soft:#3C4A52; --paper:#F1F3EF; --paper-raise:#E4E7E0; --line:#C9CDC6;
+  --cinder:#D64545; --track:#3B6FA5; --lane:#2F7A5E; --bib:#C98A1F; --garnet:#7A1F2B;
+  --font-display:'Bebas Neue','Arial Narrow',sans-serif; --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;} img{max-width:100%;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.site-header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:40;}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);}
+.brand .crest{width:10px;height:24px;background:var(--garnet);display:inline-block;transform:skewX(-8deg);}
+.brand-name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:10px;margin-left:2px;}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.main-nav a{font-family:var(--font-display);font-size:16px;letter-spacing:.5px;padding:8px 12px;text-decoration:none;color:var(--ink-soft);border-bottom:3px solid transparent;}
+.main-nav a:hover,.main-nav a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.season{padding:34px 0 26px;border-bottom:1px solid var(--line);}
+.season h1{font-family:var(--font-display);font-size:44px;letter-spacing:.5px;margin:0 0 4px;line-height:.95;}
+.season p.lede{margin:0 0 26px;color:var(--ink-soft);max-width:60ch;}
+.track-strip{display:flex;flex-direction:column;gap:10px;}
+.lane-row{display:flex;align-items:center;gap:14px;}
+.lane-label{width:78px;flex:0 0 auto;font-family:var(--font-display);font-size:15px;color:var(--ink-soft);text-align:right;}
+.lane-track{flex:1;height:14px;background:var(--paper-raise);border-radius:7px;position:relative;overflow:hidden;}
+.lane-fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;}
+.lane-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--paper);border:2px solid var(--ink);}
+.lane-dot.off{background:var(--line);border-color:var(--line);}
+.season-meta{display:flex;gap:26px;margin-top:18px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
+.season-meta b{color:var(--ink);font-weight:600;}
+.section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.4px;margin:40px 0 16px;}
+.trim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+.trim-card{border:1px solid var(--ink);border-radius:6px;padding:20px;text-decoration:none;color:var(--ink);background:var(--paper);}
+.trim-card .num{font-family:var(--font-display);font-size:46px;line-height:1;}
+.trim-card .name{font-weight:600;margin:6px 0 10px;}
+.trim-card .range{font-size:12.5px;color:var(--ink-soft);}
+.trim-card.t1{border-top:5px solid var(--cinder);} .trim-card.t2{border-top:5px solid var(--track);} .trim-card.t3{border-top:5px solid var(--lane);}
+.bloque-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.bloque-card{border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none;color:var(--ink);background:#fff;display:flex;flex-direction:column;gap:8px;}
+.bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
+.bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+.bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
+.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
+.side-nav{position:sticky;top:78px;}
+.side-nav .group{margin-bottom:20px;}
+.side-nav .group-title{font-family:var(--font-display);font-size:13px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:6px;}
+.side-nav a{display:block;padding:6px 0;font-size:14px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent;padding-left:10px;}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.bloque-header{margin-bottom:18px;}
+.bloque-eyebrow{display:inline-block;font-family:var(--font-display);font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#fff;padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.bloque-header h1{font-family:var(--font-display);font-size:40px;margin:0 0 6px;letter-spacing:.4px;}
+.bloque-header .sub{color:var(--ink-soft);font-size:15px;max-width:65ch;}
+.theory{max-width:72ch;}
+.theory h1{display:none;}
+.theory h2{font-size:21px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.theory p{margin:0 0 14px;} .theory ul,.theory ol{margin:0 0 14px;padding-left:22px;} .theory li{margin-bottom:4px;}
+.theory strong{font-weight:700;}
+.theory blockquote{margin:0 0 18px;padding:12px 16px;background:var(--paper-raise);border-left:3px solid var(--ink);font-size:14.5px;}
+.theory table{border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px;}
+.theory th,.theory td{border:1px solid var(--line);padding:7px 10px;text-align:left;}
+.theory th{background:var(--paper-raise);font-weight:600;}
+.sesiones-title{font-family:var(--font-display);font-size:20px;margin:40px 0 12px;letter-spacing:.4px;}
+.sesiones-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;}
+.bib-card{flex:0 0 auto;width:132px;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;background:#fff;}
+.bib-card .n{font-family:var(--font-display);font-size:28px;line-height:1;}
+.bib-card .fecha{font-size:11.5px;color:var(--ink-soft);margin:2px 0 6px;}
+.bib-card .detalle{font-size:12px;line-height:1.3;}
+.tu-turno{margin-top:46px;border:1px dashed var(--ink-soft);border-radius:6px;padding:22px 24px;background:#fff;}
+.tu-turno h2{font-family:var(--font-display);font-size:20px;margin:0 0 6px;letter-spacing:.4px;border:none;padding:0;}
+.tu-turno p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+.turno-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:not-allowed;opacity:.45;}
+textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font-size:14px;border:1px solid var(--line);border-radius:3px;padding:10px;margin-bottom:12px;resize:vertical;}
+.cal-filtros{display:flex;gap:8px;margin:18px 0 22px;flex-wrap:wrap;}
+.cal-filtros button{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+.cal-filtros button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.cal-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.cal-table th{text-align:left;font-family:var(--font-display);font-weight:400;letter-spacing:.4px;font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--ink);padding:8px 10px;}
+.cal-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.cal-table tr.off td{color:var(--ink-soft);font-style:italic;background:var(--paper-raise);}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;color:#fff;font-weight:600;}
+.site-footer{border-top:2px solid var(--ink);margin-top:60px;padding:22px 0;font-size:12.5px;color:var(--ink-soft);}
+@media (max-width:880px){
+  .bloque-layout{grid-template-columns:1fr;} .side-nav{position:static;display:flex;overflow-x:auto;gap:18px;}
+  .side-nav .group{margin-bottom:0;flex:0 0 auto;} .trim-grid{grid-template-columns:1fr;} .main-nav{display:none;} .season h1{font-size:34px;}
+}
+</style></head><body>
+<header class="site-header"><div class="wrap bar">
+      <a class="brand" href="index.html"><span class="crest"></span><span class="brand-name">AFD</span>
+      <span class="brand-sub">2º Bachillerato · Colegio Santa María la Blanca</span></a>
+      <nav class="main-nav"><a href="index.html" class="">Inicio</a><a href="calendario.html" class="">Calendario</a></nav>
+    </div></header>
+<main><div class="wrap"><div class="bloque-layout">
+      <nav class="side-nav"><div class="group"><div class="group-title">Eje del curso</div><a href="01-fuerza.html" class="">Fuerza</a></div><div class="group"><div class="group-title">1er trimestre</div><a href="02-resistencia.html" class="">Resistencia</a><a href="03-deporte-profesor.html" class="">Deporte del profesor</a><a href="04-deporte-alumnos.html" class="active">Deporte diseñado por alumnos</a></div><div class="group"><div class="group-title">2º trimestre</div><a href="05-natacion.html" class="">Natación</a><a href="06-pickleball.html" class="">Pickleball</a></div><div class="group"><div class="group-title">3er trimestre</div><a href="07-hibrido.html" class="">Híbrido Fuerza-Resistencia</a><a href="08-malabares.html" class="">Malabares</a></div><div class="group"><a href="calendario.html">↳ Ver calendario completo</a></div></nav>
+      <div>
+        <div class="bloque-header">
+          <span class="bloque-eyebrow cinder">Eje transversal</span>
+          <h1>Deporte diseñado por alumnos</h1><p class="sub">Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
+        </div>
+        <div class="theory"><h1>Deporte diseñado por alumnos — Condición Física específica (3 trimestres)</h1>
+<h2>1. El concepto central: especificidad</h2>
+<p>No todos los deportes exigen las mismas capacidades físicas ni en la misma proporción. Un maratón exige sobre todo resistencia aeróbica; el lanzamiento de peso exige fuerza-potencia; el tenis exige una combinación de velocidad, fuerza reactiva y resistencia intermitente. A esto se le llama <strong>principio de especificidad</strong>: el entrenamiento más eficaz para un deporte es el que reproduce las demandas reales de ese deporte, no un trabajo genérico.</p>
+<p>El objetivo de este bloque es que cada grupo aprenda a <strong>analizar las demandas físicas reales de un deporte</strong> y a <strong>diseñar un entrenamiento coherente con ellas</strong>, para después dirigirlo a sus propios compañeros.</p>
+<h2>2. Cómo analizar las demandas físicas de un deporte</h2>
+<p>Antes de diseñar cualquier sesión, hay que responder a estas preguntas sobre el deporte elegido:</p>
+<ul>
+<li><strong>¿Qué capacidades condicionales predominan?</strong> (fuerza, resistencia, velocidad, flexibilidad, y en qué proporción)</li>
+<li><strong>¿Qué capacidades coordinativas son clave?</strong> (equilibrio, ritmo, coordinación óculo-manual/pie, reacción...)</li>
+<li><strong>¿Cuál es el patrón de esfuerzo?</strong> ¿Es continuo (ej. ciclismo de fondo) o intermitente con cambios de ritmo (ej. fútbol, baloncesto)?</li>
+<li><strong>¿Qué grupos musculares y patrones de movimiento se usan más?</strong></li>
+<li><strong>¿Qué lesiones son típicas de ese deporte?</strong> (para incluir prevención específica)</li>
+</ul>
+<h2>3. Estructura de una sesión de entrenamiento bien diseñada</h2>
+<p>Toda sesión, sea cual sea el deporte, sigue esta estructura:</p>
+<ol>
+<li><strong>Calentamiento general</strong>: activación cardiovascular suave, movilidad articular general.</li>
+<li><strong>Calentamiento específico</strong>: gestos y patrones que se van a usar en la parte principal, a menor intensidad.</li>
+<li><strong>Parte principal</strong>: el contenido central de la sesión, coherente con el análisis de demandas del punto 2.</li>
+<li><strong>Vuelta a la calma</strong>: bajada progresiva de intensidad, estiramientos, reflexión breve sobre la sesión.</li>
+</ol>
+<h2>4. Principios de diseño que debe cumplir la propuesta de cada grupo</h2>
+<ul>
+<li><strong>Progresión</strong>: la dificultad debe aumentar de forma gradual entre sesiones, no ser aleatoria.</li>
+<li><strong>Variedad</strong>: evitar repetir siempre el mismo ejercicio; variar estímulos manteniendo el mismo objetivo.</li>
+<li><strong>Transferencia</strong>: cada ejercicio debe poder justificarse — "esto mejora X capacidad, que es importante en este deporte porque...".</li>
+<li><strong>Adaptación al grupo</strong>: el resto de la clase no tiene por qué tener el nivel de un practicante de ese deporte; la sesión debe ser exigente pero accesible para todos.</li>
+</ul>
+<h2>5. Cómo dirigir una sesión a tus compañeros</h2>
+<p>Diseñar bien no es suficiente: hay que saber comunicarlo y dirigirlo. Se valora:</p>
+<ul>
+<li><strong>Explicación clara</strong>: instrucciones breves y demostrables, no solo verbales.</li>
+<li><strong>Gestión del grupo</strong>: organización del espacio, del material y de los tiempos.</li>
+<li><strong>Feedback durante la sesión</strong>: corregir y motivar mientras el grupo ejecuta, no solo al final.</li>
+<li><strong>Adaptación sobre la marcha</strong>: si algo no funciona (demasiado fácil, demasiado difícil, falta de material), saber ajustar en el momento.</li>
+</ul>
+<h2>6. Evolución del proyecto a lo largo del curso</h2>
+<table>
+<thead>
+<tr>
+<th>Trimestre</th>
+<th>Nivel de exigencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1º</td>
+<td>Primer contacto con el proceso completo: analizar, diseñar, dirigir. Mayor guía del profesor.</td>
+</tr>
+<tr>
+<td>2º</td>
+<td>Mayor autonomía en el diseño; se espera una justificación más rigurosa de las decisiones tomadas.</td>
+</tr>
+<tr>
+<td>3º</td>
+<td>Proyecto de cierre de curso: la propuesta debe estar plenamente justificada, ejecutada con fluidez, y se presenta en una exhibición final con coevaluación de los demás grupos.</td>
+</tr>
+</tbody>
+</table>
+<h2>7. Coevaluación: cómo valorar el trabajo de otro grupo</h2>
+<p>En la exhibición final del tercer trimestre, cada grupo evalúa a los demás. Los criterios de esa coevaluación son los mismos que se han usado todo el curso: coherencia entre el deporte elegido y las capacidades trabajadas, claridad en la dirección de la sesión, y capacidad de adaptar la propuesta al grupo que la recibe.</p></div>
+        <h2 class="sesiones-title">Sesiones de este bloque</h2>
+        <div class="sesiones-strip"><div class="bib-card"><div class="n">01</div>
+      <div class="fecha">Viernes, 11 sep</div>
+      <div class="detalle">Sesión 1</div></div><div class="bib-card"><div class="n">02</div>
+      <div class="fecha">Viernes, 18 sep</div>
+      <div class="detalle">Sesión 2</div></div><div class="bib-card"><div class="n">03</div>
+      <div class="fecha">Viernes, 25 sep</div>
+      <div class="detalle">Sesión 3</div></div><div class="bib-card"><div class="n">04</div>
+      <div class="fecha">Viernes, 02 oct</div>
+      <div class="detalle">Sesión 4</div></div><div class="bib-card"><div class="n">05</div>
+      <div class="fecha">Viernes, 09 oct</div>
+      <div class="detalle">Sesión 5</div></div><div class="bib-card"><div class="n">06</div>
+      <div class="fecha">Viernes, 16 oct</div>
+      <div class="detalle">Sesión 6</div></div><div class="bib-card"><div class="n">07</div>
+      <div class="fecha">Viernes, 23 oct</div>
+      <div class="detalle">Sesión 7</div></div><div class="bib-card"><div class="n">08</div>
+      <div class="fecha">Viernes, 06 nov</div>
+      <div class="detalle">Sesión 1</div></div><div class="bib-card"><div class="n">09</div>
+      <div class="fecha">Viernes, 13 nov</div>
+      <div class="detalle">Sesión 2</div></div><div class="bib-card"><div class="n">10</div>
+      <div class="fecha">Viernes, 20 nov</div>
+      <div class="detalle">Sesión 3</div></div><div class="bib-card"><div class="n">11</div>
+      <div class="fecha">Viernes, 27 nov</div>
+      <div class="detalle">Sesión 4</div></div><div class="bib-card"><div class="n">12</div>
+      <div class="fecha">Viernes, 04 dic</div>
+      <div class="detalle">Sesión 5</div></div><div class="bib-card"><div class="n">13</div>
+      <div class="fecha">Viernes, 11 dic</div>
+      <div class="detalle">Sesión 6</div></div><div class="bib-card"><div class="n">14</div>
+      <div class="fecha">Viernes, 15 ene</div>
+      <div class="detalle">Sesión 7 (última regular)</div></div><div class="bib-card"><div class="n">15</div>
+      <div class="fecha">Viernes, 22 ene</div>
+      <div class="detalle">Cierre: exhibición y entrega del proyecto</div></div><div class="bib-card"><div class="n">16</div>
+      <div class="fecha">Viernes, 05 feb</div>
+      <div class="detalle">Sesión 1</div></div><div class="bib-card"><div class="n">17</div>
+      <div class="fecha">Viernes, 19 feb</div>
+      <div class="detalle">Sesión 2</div></div><div class="bib-card"><div class="n">18</div>
+      <div class="fecha">Viernes, 26 feb</div>
+      <div class="detalle">Sesión 3</div></div><div class="bib-card"><div class="n">19</div>
+      <div class="fecha">Viernes, 05 mar</div>
+      <div class="detalle">Sesión 4</div></div><div class="bib-card"><div class="n">20</div>
+      <div class="fecha">Viernes, 12 mar</div>
+      <div class="detalle">Sesión 5</div></div><div class="bib-card"><div class="n">21</div>
+      <div class="fecha">Viernes, 02 abr</div>
+      <div class="detalle">Sesión 6</div></div><div class="bib-card"><div class="n">22</div>
+      <div class="fecha">Viernes, 09 abr</div>
+      <div class="detalle">Sesión 7</div></div><div class="bib-card"><div class="n">23</div>
+      <div class="fecha">Viernes, 16 abr</div>
+      <div class="detalle">Sesión 8</div></div><div class="bib-card"><div class="n">24</div>
+      <div class="fecha">Viernes, 23 abr</div>
+      <div class="detalle">Sesión 9 — CIERRE DE CURSO</div></div></div>
+        <div class="tu-turno">
+          <h2>Tu turno</h2>
+          <p>Espacio para entregas y sugerencias de "Deporte diseñado por alumnos". Esta parte se activará en la Fase 2 (entregas con feedback del profesor); de momento puedes escribir aquí una nota para ti — no se guarda todavía.</p>
+          <textarea class="sugerencia" placeholder="Escribe una sugerencia, duda o borrador de tu entrega…"></textarea>
+          <div class="turno-actions">
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar entrega</button>
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar sugerencia</button>
+          </div>
+        </div>
+      </div>
+    </div></div></main>
+<footer class="site-footer"><div class="wrap">
+  Actividades Físico Deportivas · 2º Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Colegio Santa María la Blanca (Madrid)
+</div></footer>
+</body></html>

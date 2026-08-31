@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio · AFD 2º Bachillerato</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --ink:#16232B; --ink-soft:#3C4A52; --paper:#F1F3EF; --paper-raise:#E4E7E0; --line:#C9CDC6;
+  --cinder:#D64545; --track:#3B6FA5; --lane:#2F7A5E; --bib:#C98A1F; --garnet:#7A1F2B;
+  --font-display:'Bebas Neue','Arial Narrow',sans-serif; --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;} img{max-width:100%;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.site-header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:40;}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);}
+.brand .crest{width:10px;height:24px;background:var(--garnet);display:inline-block;transform:skewX(-8deg);}
+.brand-name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:10px;margin-left:2px;}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.main-nav a{font-family:var(--font-display);font-size:16px;letter-spacing:.5px;padding:8px 12px;text-decoration:none;color:var(--ink-soft);border-bottom:3px solid transparent;}
+.main-nav a:hover,.main-nav a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.season{padding:34px 0 26px;border-bottom:1px solid var(--line);}
+.season h1{font-family:var(--font-display);font-size:44px;letter-spacing:.5px;margin:0 0 4px;line-height:.95;}
+.season p.lede{margin:0 0 26px;color:var(--ink-soft);max-width:60ch;}
+.track-strip{display:flex;flex-direction:column;gap:10px;}
+.lane-row{display:flex;align-items:center;gap:14px;}
+.lane-label{width:78px;flex:0 0 auto;font-family:var(--font-display);font-size:15px;color:var(--ink-soft);text-align:right;}
+.lane-track{flex:1;height:14px;background:var(--paper-raise);border-radius:7px;position:relative;overflow:hidden;}
+.lane-fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;}
+.lane-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--paper);border:2px solid var(--ink);}
+.lane-dot.off{background:var(--line);border-color:var(--line);}
+.season-meta{display:flex;gap:26px;margin-top:18px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
+.season-meta b{color:var(--ink);font-weight:600;}
+.section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.4px;margin:40px 0 16px;}
+.trim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+.trim-card{border:1px solid var(--ink);border-radius:6px;padding:20px;text-decoration:none;color:var(--ink);background:var(--paper);}
+.trim-card .num{font-family:var(--font-display);font-size:46px;line-height:1;}
+.trim-card .name{font-weight:600;margin:6px 0 10px;}
+.trim-card .range{font-size:12.5px;color:var(--ink-soft);}
+.trim-card.t1{border-top:5px solid var(--cinder);} .trim-card.t2{border-top:5px solid var(--track);} .trim-card.t3{border-top:5px solid var(--lane);}
+.bloque-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.bloque-card{border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none;color:var(--ink);background:#fff;display:flex;flex-direction:column;gap:8px;}
+.bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
+.bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+.bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
+.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
+.side-nav{position:sticky;top:78px;}
+.side-nav .group{margin-bottom:20px;}
+.side-nav .group-title{font-family:var(--font-display);font-size:13px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:6px;}
+.side-nav a{display:block;padding:6px 0;font-size:14px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent;padding-left:10px;}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.bloque-header{margin-bottom:18px;}
+.bloque-eyebrow{display:inline-block;font-family:var(--font-display);font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#fff;padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.bloque-header h1{font-family:var(--font-display);font-size:40px;margin:0 0 6px;letter-spacing:.4px;}
+.bloque-header .sub{color:var(--ink-soft);font-size:15px;max-width:65ch;}
+.theory{max-width:72ch;}
+.theory h1{display:none;}
+.theory h2{font-size:21px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.theory p{margin:0 0 14px;} .theory ul,.theory ol{margin:0 0 14px;padding-left:22px;} .theory li{margin-bottom:4px;}
+.theory strong{font-weight:700;}
+.theory blockquote{margin:0 0 18px;padding:12px 16px;background:var(--paper-raise);border-left:3px solid var(--ink);font-size:14.5px;}
+.theory table{border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px;}
+.theory th,.theory td{border:1px solid var(--line);padding:7px 10px;text-align:left;}
+.theory th{background:var(--paper-raise);font-weight:600;}
+.sesiones-title{font-family:var(--font-display);font-size:20px;margin:40px 0 12px;letter-spacing:.4px;}
+.sesiones-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;}
+.bib-card{flex:0 0 auto;width:132px;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;background:#fff;}
+.bib-card .n{font-family:var(--font-display);font-size:28px;line-height:1;}
+.bib-card .fecha{font-size:11.5px;color:var(--ink-soft);margin:2px 0 6px;}
+.bib-card .detalle{font-size:12px;line-height:1.3;}
+.tu-turno{margin-top:46px;border:1px dashed var(--ink-soft);border-radius:6px;padding:22px 24px;background:#fff;}
+.tu-turno h2{font-family:var(--font-display);font-size:20px;margin:0 0 6px;letter-spacing:.4px;border:none;padding:0;}
+.tu-turno p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+.turno-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:not-allowed;opacity:.45;}
+textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font-size:14px;border:1px solid var(--line);border-radius:3px;padding:10px;margin-bottom:12px;resize:vertical;}
+.cal-filtros{display:flex;gap:8px;margin:18px 0 22px;flex-wrap:wrap;}
+.cal-filtros button{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+.cal-filtros button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.cal-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.cal-table th{text-align:left;font-family:var(--font-display);font-weight:400;letter-spacing:.4px;font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--ink);padding:8px 10px;}
+.cal-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.cal-table tr.off td{color:var(--ink-soft);font-style:italic;background:var(--paper-raise);}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;color:#fff;font-weight:600;}
+.site-footer{border-top:2px solid var(--ink);margin-top:60px;padding:22px 0;font-size:12.5px;color:var(--ink-soft);}
+@media (max-width:880px){
+  .bloque-layout{grid-template-columns:1fr;} .side-nav{position:static;display:flex;overflow-x:auto;gap:18px;}
+  .side-nav .group{margin-bottom:0;flex:0 0 auto;} .trim-grid{grid-template-columns:1fr;} .main-nav{display:none;} .season h1{font-size:34px;}
+}
+</style></head><body>
+<header class="site-header"><div class="wrap bar">
+      <a class="brand" href="index.html"><span class="crest"></span><span class="brand-name">AFD</span>
+      <span class="brand-sub">2º Bachillerato · Colegio Santa María la Blanca</span></a>
+      <nav class="main-nav"><a href="index.html" class="active">Inicio</a><a href="calendario.html" class="">Calendario</a></nav>
+    </div></header>
+<main><section class="season"><div class="wrap">
+      <h1>Actividades Físico Deportivas</h1>
+      <p class="lede">2º de Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Cada punto de la calle es una sesión real de tu horario (martes a viernes).</p>
+      <div class="track-strip"><div class="lane-row">
+          <div class="lane-label">1ᵉʳ trim.</div>
+          <div class="lane-track"><div class="lane-fill" style="width:100%;background:var(--cinder);opacity:.16"></div><span class="lane-dot" style="left:0.0%" title="09 sep · Resistencia"></span><span class="lane-dot" style="left:1.8%" title="10 sep · Deporte del profesor"></span><span class="lane-dot" style="left:3.6%" title="11 sep · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:10.9%" title="15 sep · Fuerza"></span><span class="lane-dot" style="left:12.7%" title="16 sep · Resistencia"></span><span class="lane-dot" style="left:14.5%" title="17 sep · Deporte del profesor"></span><span class="lane-dot" style="left:16.4%" title="18 sep · Deporte diseñado por alumnos"></span><span class="lane-dot off" style="left:23.6%" title="22 sep · Convivencia 2º Bach - El Escorial"></span><span class="lane-dot" style="left:25.5%" title="23 sep · Resistencia"></span><span class="lane-dot" style="left:27.3%" title="24 sep · Deporte del profesor"></span><span class="lane-dot" style="left:29.1%" title="25 sep · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:36.4%" title="29 sep · Fuerza"></span><span class="lane-dot" style="left:38.2%" title="30 sep · Resistencia"></span><span class="lane-dot" style="left:40.0%" title="01 oct · Deporte del profesor"></span><span class="lane-dot" style="left:41.8%" title="02 oct · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:49.1%" title="06 oct · Fuerza"></span><span class="lane-dot" style="left:50.9%" title="07 oct · Resistencia"></span><span class="lane-dot" style="left:52.7%" title="08 oct · Deporte del profesor"></span><span class="lane-dot" style="left:54.5%" title="09 oct · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:61.8%" title="13 oct · Fuerza"></span><span class="lane-dot" style="left:63.6%" title="14 oct · Resistencia"></span><span class="lane-dot" style="left:65.5%" title="15 oct · Deporte del profesor"></span><span class="lane-dot" style="left:67.3%" title="16 oct · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:74.5%" title="20 oct · Fuerza"></span><span class="lane-dot" style="left:76.4%" title="21 oct · Resistencia"></span><span class="lane-dot" style="left:78.2%" title="22 oct · Deporte del profesor"></span><span class="lane-dot" style="left:80.0%" title="23 oct · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:87.3%" title="27 oct · Fuerza"></span><span class="lane-dot" style="left:89.1%" title="28 oct · Resistencia"></span><span class="lane-dot off" style="left:90.9%" title="29 oct · Exámenes 1ª evaluación 2º Bachillerato"></span><span class="lane-dot off" style="left:92.7%" title="30 oct · Exámenes 1ª evaluación 2º Bachillerato"></span><span class="lane-dot off" style="left:100.0%" title="03 nov · Exámenes 1ª evaluación 2º Bachillerato"></span></div>
+        </div><div class="lane-row">
+          <div class="lane-label">2ᵉʳ trim.</div>
+          <div class="lane-track"><div class="lane-fill" style="width:100%;background:var(--track);opacity:.16"></div><span class="lane-dot" style="left:0.0%" title="04 nov · Natación"></span><span class="lane-dot" style="left:1.3%" title="05 nov · Pickleball"></span><span class="lane-dot" style="left:2.5%" title="06 nov · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:7.6%" title="10 nov · Fuerza"></span><span class="lane-dot" style="left:8.9%" title="11 nov · Natación"></span><span class="lane-dot" style="left:10.1%" title="12 nov · Pickleball"></span><span class="lane-dot" style="left:11.4%" title="13 nov · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:16.5%" title="17 nov · Fuerza"></span><span class="lane-dot" style="left:17.7%" title="18 nov · Natación"></span><span class="lane-dot" style="left:19.0%" title="19 nov · Pickleball"></span><span class="lane-dot" style="left:20.3%" title="20 nov · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:25.3%" title="24 nov · Fuerza"></span><span class="lane-dot" style="left:26.6%" title="25 nov · Natación"></span><span class="lane-dot" style="left:27.8%" title="26 nov · Pickleball"></span><span class="lane-dot" style="left:29.1%" title="27 nov · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:34.2%" title="01 dic · Fuerza"></span><span class="lane-dot" style="left:35.4%" title="02 dic · Natación"></span><span class="lane-dot" style="left:36.7%" title="03 dic · Pickleball"></span><span class="lane-dot" style="left:38.0%" title="04 dic · Deporte diseñado por alumnos"></span><span class="lane-dot off" style="left:43.0%" title="08 dic · Inmaculada Concepción (festivo)"></span><span class="lane-dot" style="left:44.3%" title="09 dic · Natación"></span><span class="lane-dot" style="left:45.6%" title="10 dic · Pickleball"></span><span class="lane-dot" style="left:46.8%" title="11 dic · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:51.9%" title="15 dic · Fuerza"></span><span class="lane-dot" style="left:53.2%" title="16 dic · Natación"></span><span class="lane-dot" style="left:54.4%" title="17 dic · Pickleball"></span><span class="lane-dot off" style="left:55.7%" title="18 dic · Festival de Navidad (día especial)"></span><span class="lane-dot" style="left:87.3%" title="12 ene · Fuerza"></span><span class="lane-dot" style="left:88.6%" title="13 ene · Natación"></span><span class="lane-dot" style="left:89.9%" title="14 ene · Pickleball"></span><span class="lane-dot" style="left:91.1%" title="15 ene · Deporte diseñado por alumnos"></span><span class="lane-dot off" style="left:96.2%" title="19 ene · Exámenes 2ª evaluación 2º Bachillerato"></span><span class="lane-dot off" style="left:97.5%" title="20 ene · Exámenes 2ª evaluación 2º Bachillerato"></span><span class="lane-dot" style="left:98.7%" title="21 ene · Pickleball"></span><span class="lane-dot" style="left:100.0%" title="22 ene · Deporte diseñado por alumnos"></span></div>
+        </div><div class="lane-row">
+          <div class="lane-label">3ᵉʳ trim.</div>
+          <div class="lane-track"><div class="lane-fill" style="width:100%;background:var(--lane);opacity:.16"></div><span class="lane-dot" style="left:0.0%" title="02 feb · Fuerza"></span><span class="lane-dot" style="left:1.2%" title="03 feb · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:2.5%" title="04 feb · Malabares"></span><span class="lane-dot" style="left:3.8%" title="05 feb · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:8.8%" title="09 feb · Fuerza"></span><span class="lane-dot" style="left:10.0%" title="10 feb · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:11.2%" title="11 feb · Malabares"></span><span class="lane-dot off" style="left:12.5%" title="12 feb · No lectivo"></span><span class="lane-dot" style="left:17.5%" title="16 feb · Fuerza"></span><span class="lane-dot" style="left:18.8%" title="17 feb · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:20.0%" title="18 feb · Malabares"></span><span class="lane-dot" style="left:21.2%" title="19 feb · Deporte diseñado por alumnos"></span><span class="lane-dot off" style="left:26.2%" title="23 feb · Exámenes recuperación 2ª evaluación"></span><span class="lane-dot off" style="left:27.5%" title="24 feb · Exámenes recuperación 2ª evaluación"></span><span class="lane-dot" style="left:28.7%" title="25 feb · Malabares"></span><span class="lane-dot" style="left:30.0%" title="26 feb · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:35.0%" title="02 mar · Fuerza"></span><span class="lane-dot" style="left:36.2%" title="03 mar · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:37.5%" title="04 mar · Malabares"></span><span class="lane-dot" style="left:38.8%" title="05 mar · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:43.8%" title="09 mar · Fuerza"></span><span class="lane-dot" style="left:45.0%" title="10 mar · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:46.2%" title="11 mar · Malabares"></span><span class="lane-dot" style="left:47.5%" title="12 mar · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:52.5%" title="16 mar · Fuerza"></span><span class="lane-dot" style="left:53.8%" title="17 mar · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:55.0%" title="18 mar · Malabares"></span><span class="lane-dot off" style="left:56.2%" title="19 mar · San José / puente Semana Santa"></span><span class="lane-dot" style="left:70.0%" title="30 mar · Fuerza"></span><span class="lane-dot off" style="left:71.2%" title="31 mar · Exámenes 3ª evaluación 2º Bachillerato"></span><span class="lane-dot off" style="left:72.5%" title="01 abr · Exámenes 3ª evaluación 2º Bachillerato"></span><span class="lane-dot" style="left:73.8%" title="02 abr · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:78.8%" title="06 abr · Sesión de refuerzo / cierre"></span><span class="lane-dot" style="left:80.0%" title="07 abr · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:81.2%" title="08 abr · Malabares"></span><span class="lane-dot" style="left:82.5%" title="09 abr · Deporte diseñado por alumnos"></span><span class="lane-dot off" style="left:87.5%" title="13 abr · Exámenes recuperación 3ª evaluación"></span><span class="lane-dot" style="left:88.8%" title="14 abr · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:90.0%" title="15 abr · Malabares"></span><span class="lane-dot" style="left:91.2%" title="16 abr · Deporte diseñado por alumnos"></span><span class="lane-dot" style="left:96.2%" title="20 abr · Sesión de refuerzo / cierre"></span><span class="lane-dot" style="left:97.5%" title="21 abr · Híbrido Fuerza-Resistencia"></span><span class="lane-dot" style="left:98.8%" title="22 abr · Malabares"></span><span class="lane-dot" style="left:100.0%" title="23 abr · Deporte diseñado por alumnos"></span></div>
+        </div></div>
+      <div class="season-meta">
+        <span><b>96</b> sesiones de clase</span>
+        <span><b>15</b> suspendidas (exámenes / festivos)</span>
+        <span><b>4h</b> semanales · martes, miércoles, jueves y viernes</span>
+      </div>
+    </div></section><div class="wrap">
+  <h2 class="section-title">Los tres trimestres</h2>
+  <div class="trim-grid"><a class="trim-card t1" href="#t1">
+  <div class="num">01</div><div class="name">Primer trimestre</div><div class="range">09 sep – 03 nov</div></a><a class="trim-card t2" href="#t2">
+  <div class="num">02</div><div class="name">Segundo trimestre</div><div class="range">04 nov – 22 ene</div></a><a class="trim-card t3" href="#t3">
+  <div class="num">03</div><div class="name">Tercer trimestre</div><div class="range">02 feb – 23 abr</div></a></div>
+  <h2 class="section-title" id="t1">Primer trimestre</h2><div class="bloque-grid"><a class="bloque-card" href="01-fuerza.html">
+      <span class="tag bib">Todo el curso</span>
+      <h3>Fuerza</h3><p>Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
+      <span class="dia">📅 Martes</span></a><a class="bloque-card" href="02-resistencia.html">
+      <span class="tag cinder">Trim. 1</span>
+      <h3>Resistencia</h3><p>Resistencia aeróbica y anaeróbica: sistemas energéticos, zonas de FC, métodos de entrenamiento y pruebas de valoración.</p>
+      <span class="dia">📅 Miércoles</span></a><a class="bloque-card" href="03-deporte-profesor.html">
+      <span class="tag cinder">Trim. 1</span>
+      <h3>Deporte del profesor</h3><p>Deporte de iniciación dirigido por Jaime. Contenido pendiente de confirmar.</p>
+      <span class="dia">📅 Jueves</span></a><a class="bloque-card" href="04-deporte-alumnos.html">
+      <span class="tag cinder">Todo el curso</span>
+      <h3>Deporte diseñado por alumnos</h3><p>Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
+      <span class="dia">📅 Viernes</span></a></div><h2 class="section-title" id="t2">Segundo trimestre</h2><div class="bloque-grid"><a class="bloque-card" href="01-fuerza.html">
+      <span class="tag bib">Todo el curso</span>
+      <h3>Fuerza</h3><p>Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
+      <span class="dia">📅 Martes</span></a><a class="bloque-card" href="04-deporte-alumnos.html">
+      <span class="tag cinder">Todo el curso</span>
+      <h3>Deporte diseñado por alumnos</h3><p>Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
+      <span class="dia">📅 Viernes</span></a><a class="bloque-card" href="05-natacion.html">
+      <span class="tag track">Trim. 2</span>
+      <h3>Natación</h3><p>Técnica de crol, espalda y braza. Principios físicos del nado y resistencia acuática.</p>
+      <span class="dia">📅 Miércoles</span></a><a class="bloque-card" href="06-pickleball.html">
+      <span class="tag track">Trim. 2</span>
+      <h3>Pickleball</h3><p>Deporte de raqueta por retos graduados: del saque básico a la liguilla interna.</p>
+      <span class="dia">📅 Jueves</span></a></div><h2 class="section-title" id="t3">Tercer trimestre</h2><div class="bloque-grid"><a class="bloque-card" href="01-fuerza.html">
+      <span class="tag bib">Todo el curso</span>
+      <h3>Fuerza</h3><p>Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
+      <span class="dia">📅 Martes</span></a><a class="bloque-card" href="04-deporte-alumnos.html">
+      <span class="tag cinder">Todo el curso</span>
+      <h3>Deporte diseñado por alumnos</h3><p>Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
+      <span class="dia">📅 Viernes</span></a><a class="bloque-card" href="07-hibrido.html">
+      <span class="tag lane">Trim. 3</span>
+      <h3>Híbrido Fuerza-Resistencia</h3><p>Entrenamiento concurrente: circuitos funcionales, HIIT, formatos EMOM y AMRAP.</p>
+      <span class="dia">📅 Miércoles</span></a><a class="bloque-card" href="08-malabares.html">
+      <span class="tag lane">Trim. 3</span>
+      <h3>Malabares</h3><p>Coordinación y aprendizaje motor por retos graduados: de 1 objeto a la exhibición final.</p>
+      <span class="dia">📅 Jueves</span></a></div>
+</div></main>
+<footer class="site-footer"><div class="wrap">
+  Actividades Físico Deportivas · 2º Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Colegio Santa María la Blanca (Madrid)
+</div></footer>
+</body></html>
