@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resistencia · AFD 2º Bachillerato</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --ink:#16232B; --ink-soft:#3C4A52; --paper:#F1F3EF; --paper-raise:#E4E7E0; --line:#C9CDC6;
+  --cinder:#D64545; --track:#3B6FA5; --lane:#2F7A5E; --bib:#C98A1F; --garnet:#7A1F2B;
+  --font-display:'Bebas Neue','Arial Narrow',sans-serif; --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;} img{max-width:100%;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.site-header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:40;}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);}
+.brand .crest{width:10px;height:24px;background:var(--garnet);display:inline-block;transform:skewX(-8deg);}
+.brand-name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:10px;margin-left:2px;}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;}
+.main-nav a{font-family:var(--font-display);font-size:16px;letter-spacing:.5px;padding:8px 12px;text-decoration:none;color:var(--ink-soft);border-bottom:3px solid transparent;}
+.main-nav a:hover,.main-nav a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.season{padding:34px 0 26px;border-bottom:1px solid var(--line);}
+.season h1{font-family:var(--font-display);font-size:44px;letter-spacing:.5px;margin:0 0 4px;line-height:.95;}
+.season p.lede{margin:0 0 26px;color:var(--ink-soft);max-width:60ch;}
+.track-strip{display:flex;flex-direction:column;gap:10px;}
+.lane-row{display:flex;align-items:center;gap:14px;}
+.lane-label{width:78px;flex:0 0 auto;font-family:var(--font-display);font-size:15px;color:var(--ink-soft);text-align:right;}
+.lane-track{flex:1;height:14px;background:var(--paper-raise);border-radius:7px;position:relative;overflow:hidden;}
+.lane-fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;}
+.lane-dot{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--paper);border:2px solid var(--ink);}
+.lane-dot.off{background:var(--line);border-color:var(--line);}
+.season-meta{display:flex;gap:26px;margin-top:18px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
+.season-meta b{color:var(--ink);font-weight:600;}
+.section-title{font-family:var(--font-display);font-size:22px;letter-spacing:.4px;margin:40px 0 16px;}
+.trim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+.trim-card{border:1px solid var(--ink);border-radius:6px;padding:20px;text-decoration:none;color:var(--ink);background:var(--paper);}
+.trim-card .num{font-family:var(--font-display);font-size:46px;line-height:1;}
+.trim-card .name{font-weight:600;margin:6px 0 10px;}
+.trim-card .range{font-size:12.5px;color:var(--ink-soft);}
+.trim-card.t1{border-top:5px solid var(--cinder);} .trim-card.t2{border-top:5px solid var(--track);} .trim-card.t3{border-top:5px solid var(--lane);}
+.bloque-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.bloque-card{border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none;color:var(--ink);background:#fff;display:flex;flex-direction:column;gap:8px;}
+.bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
+.bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+.bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
+.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
+.side-nav{position:sticky;top:78px;}
+.side-nav .group{margin-bottom:20px;}
+.side-nav .group-title{font-family:var(--font-display);font-size:13px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:6px;}
+.side-nav a{display:block;padding:6px 0;font-size:14px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent;padding-left:10px;}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.bloque-header{margin-bottom:18px;}
+.bloque-eyebrow{display:inline-block;font-family:var(--font-display);font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#fff;padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.bloque-header h1{font-family:var(--font-display);font-size:40px;margin:0 0 6px;letter-spacing:.4px;}
+.bloque-header .sub{color:var(--ink-soft);font-size:15px;max-width:65ch;}
+.theory{max-width:72ch;}
+.theory h1{display:none;}
+.theory h2{font-size:21px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.theory p{margin:0 0 14px;} .theory ul,.theory ol{margin:0 0 14px;padding-left:22px;} .theory li{margin-bottom:4px;}
+.theory strong{font-weight:700;}
+.theory blockquote{margin:0 0 18px;padding:12px 16px;background:var(--paper-raise);border-left:3px solid var(--ink);font-size:14.5px;}
+.theory table{border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px;}
+.theory th,.theory td{border:1px solid var(--line);padding:7px 10px;text-align:left;}
+.theory th{background:var(--paper-raise);font-weight:600;}
+.sesiones-title{font-family:var(--font-display);font-size:20px;margin:40px 0 12px;letter-spacing:.4px;}
+.sesiones-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;}
+.bib-card{flex:0 0 auto;width:132px;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;background:#fff;}
+.bib-card .n{font-family:var(--font-display);font-size:28px;line-height:1;}
+.bib-card .fecha{font-size:11.5px;color:var(--ink-soft);margin:2px 0 6px;}
+.bib-card .detalle{font-size:12px;line-height:1.3;}
+.tu-turno{margin-top:46px;border:1px dashed var(--ink-soft);border-radius:6px;padding:22px 24px;background:#fff;}
+.tu-turno h2{font-family:var(--font-display);font-size:20px;margin:0 0 6px;letter-spacing:.4px;border:none;padding:0;}
+.tu-turno p{margin:0 0 16px;color:var(--ink-soft);font-size:14px;}
+.turno-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:not-allowed;opacity:.45;}
+textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font-size:14px;border:1px solid var(--line);border-radius:3px;padding:10px;margin-bottom:12px;resize:vertical;}
+.cal-filtros{display:flex;gap:8px;margin:18px 0 22px;flex-wrap:wrap;}
+.cal-filtros button{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+.cal-filtros button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.cal-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.cal-table th{text-align:left;font-family:var(--font-display);font-weight:400;letter-spacing:.4px;font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--ink);padding:8px 10px;}
+.cal-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.cal-table tr.off td{color:var(--ink-soft);font-style:italic;background:var(--paper-raise);}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;color:#fff;font-weight:600;}
+.site-footer{border-top:2px solid var(--ink);margin-top:60px;padding:22px 0;font-size:12.5px;color:var(--ink-soft);}
+.rotacion-nota{background:var(--paper-raise);border-left:3px solid var(--bib);padding:14px 16px;margin-bottom:18px;font-size:13.5px;line-height:1.5;}
+.ficha-sesion{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:#fff;}
+.ficha-sesion summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;align-items:center;gap:14px;}
+.ficha-sesion summary::-webkit-details-marker{display:none;}
+.ficha-sesion summary::after{content:"+";margin-left:auto;font-family:var(--font-display);font-size:20px;color:var(--ink-soft);}
+.ficha-sesion[open] summary::after{content:"–";}
+.fs-n{font-family:var(--font-display);font-size:20px;color:var(--bib);width:34px;flex:0 0 auto;}
+.fs-fecha{font-size:12.5px;color:var(--ink-soft);width:60px;flex:0 0 auto;}
+.fs-obj{font-weight:600;font-size:14.5px;}
+.fs-body{padding:0 16px 18px;}
+.fs-calentamiento{font-size:13.5px;color:var(--ink-soft);margin:0 0 12px;}
+.fs-tabla{width:100%;border-collapse:collapse;font-size:13px;}
+.fs-tabla th,.fs-tabla td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+.fs-tabla th{background:var(--paper-raise);font-weight:600;font-size:12.5px;}
+.cierre-nota{margin-top:12px;padding:10px 14px;background:var(--paper-raise);border-left:3px solid var(--garnet);font-size:13px;}
+.concepto-dia{margin-bottom:14px;padding:12px 14px;background:#FBF3E4;border-left:3px solid var(--cinder);font-size:13.5px;line-height:1.5;}
+.meso-title{font-family:var(--font-display);font-size:17px;letter-spacing:.4px;margin:26px 0 10px;color:var(--ink-soft);}
+@media (max-width:880px){
+  .bloque-layout{grid-template-columns:1fr;} .side-nav{position:static;display:flex;overflow-x:auto;gap:18px;}
+  .side-nav .group{margin-bottom:0;flex:0 0 auto;} .trim-grid{grid-template-columns:1fr;} .main-nav{display:none;} .season h1{font-size:34px;}
+}
+</style></head><body>
+<header class="site-header"><div class="wrap bar">
+      <a class="brand" href="index.html"><span class="crest"></span><span class="brand-name">AFD</span>
+      <span class="brand-sub">2º Bachillerato · Colegio Santa María la Blanca</span></a>
+      <nav class="main-nav"><a href="index.html" class="">Inicio</a><a href="calendario.html" class="">Calendario</a></nav>
+    </div></header>
+<main><div class="wrap"><div class="bloque-layout">
+      <nav class="side-nav"><div class="group"><div class="group-title">Eje del curso</div><a href="01-fuerza.html" class="">Fuerza</a></div><div class="group"><div class="group-title">1er trimestre</div><a href="02-resistencia.html" class="active">Resistencia</a><a href="03-deporte-profesor.html" class="">Deporte del profesor</a><a href="04-deporte-alumnos.html" class="">Deporte diseñado por alumnos</a></div><div class="group"><div class="group-title">2º trimestre</div><a href="05-natacion.html" class="">Natación</a><a href="06-pickleball.html" class="">Pickleball</a></div><div class="group"><div class="group-title">3er trimestre</div><a href="07-hibrido.html" class="">Híbrido Fuerza-Resistencia</a><a href="08-malabares.html" class="">Malabares</a></div><div class="group"><a href="calendario.html">↳ Ver calendario completo</a></div></nav>
+      <div>
+        <div class="bloque-header">
+          <span class="bloque-eyebrow cinder">Trimestre 1</span>
+          <h1>Resistencia</h1><p class="sub">Resistencia aeróbica y anaeróbica: sistemas energéticos, zonas de FC, métodos de entrenamiento y pruebas de valoración.</p>
+        </div>
+        <div class="theory"><h1>Resistencia — 1er Trimestre</h1>
+<h2>1. ¿Qué es la resistencia?</h2>
+<p>La resistencia es la capacidad de sostener un esfuerzo físico durante el mayor tiempo posible, retrasando la aparición de la fatiga. Se distinguen dos grandes tipos según el sistema energético predominante:</p>
+<ul>
+<li><strong>Resistencia aeróbica</strong>: esfuerzos de intensidad baja-media y larga duración, donde el organismo obtiene energía principalmente mediante el uso de oxígeno.</li>
+<li><strong>Resistencia anaeróbica</strong>: esfuerzos de intensidad alta y corta duración, donde la demanda de energía supera lo que el sistema aeróbico puede suministrar en ese momento.</li>
+</ul>
+<h2>2. Sistemas energéticos (repaso conectado con Biología)</h2>
+<table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Duración del esfuerzo</th>
+<th>Características</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ATP-PC (fosfocreatina)</strong></td>
+<td>0-10 segundos</td>
+<td>Máxima potencia, se agota muy rápido, esfuerzos tipo sprint</td>
+</tr>
+<tr>
+<td><strong>Glucolítico (anaeróbico láctico)</strong></td>
+<td>10 segundos - 2/3 minutos</td>
+<td>Produce ácido láctico, sensación de "quemazón" muscular</td>
+</tr>
+<tr>
+<td><strong>Oxidativo (aeróbico)</strong></td>
+<td>A partir de varios minutos</td>
+<td>Usa oxígeno para obtener energía de grasas e hidratos, es el sistema de los esfuerzos prolongados</td>
+</tr>
+</tbody>
+</table>
+<p>En la práctica, ningún esfuerzo usa un solo sistema de forma exclusiva: se trata de qué sistema predomina según la intensidad y duración.</p>
+<h2>3. Frecuencia cardíaca y zonas de entrenamiento</h2>
+<p>La FC es el indicador más accesible para regular la intensidad del entrenamiento de resistencia. Se trabaja con una estimación de la FC máxima (FCM ≈ 220 − edad, con las limitaciones que tiene como fórmula genérica) y se establecen zonas:</p>
+<table>
+<thead>
+<tr>
+<th>Zona</th>
+<th>% FCM aprox.</th>
+<th>Sensación / uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zona 1</td>
+<td>50-60%</td>
+<td>Muy suave, recuperación activa</td>
+</tr>
+<tr>
+<td>Zona 2</td>
+<td>60-70%</td>
+<td>Cómoda, se puede hablar con fluidez — base aeróbica</td>
+</tr>
+<tr>
+<td>Zona 3</td>
+<td>70-80%</td>
+<td>Moderada-alta, cuesta mantener conversación</td>
+</tr>
+<tr>
+<td>Zona 4</td>
+<td>80-90%</td>
+<td>Alta, esfuerzos interválicos</td>
+</tr>
+<tr>
+<td>Zona 5</td>
+<td>90-100%</td>
+<td>Máxima, esfuerzos muy cortos</td>
+</tr>
+</tbody>
+</table>
+<p>El trabajo de este trimestre se centra sobre todo en Zona 2 (base aeróbica) y progresivamente incorpora trabajo en Zona 3-4 mediante series.</p>
+<h2>4. Métodos de entrenamiento de la resistencia</h2>
+<ul>
+<li><strong>Continuo</strong>: ritmo estable y mantenido, sin pausas, duración media-larga (carrera continua).</li>
+<li><strong>Fartlek</strong>: "juego de ritmos" en sueco; alterna ritmos de forma libre y no estructurada durante un recorrido continuo.</li>
+<li><strong>Interválico</strong>: alterna fases de esfuerzo con fases de descanso o baja intensidad, de forma estructurada:</li>
+<li><strong>Series largas</strong> (800-1500m o varios minutos): desarrollan la resistencia a intensidades cercanas al umbral.</li>
+<li><strong>Series cortas</strong> (200-400m): desarrollan la capacidad de sostener intensidades más altas repetidamente.</li>
+</ul>
+<h2>5. Pruebas de valoración</h2>
+<ul>
+<li><strong>Test de Course Navette (test de ida y vuelta / 20m shuttle run)</strong>: carrera de ida y vuelta en 20 metros a un ritmo marcado por una señal sonora que va aumentando de velocidad progresivamente. Permite estimar el <strong>VO2 máx</strong> (consumo máximo de oxígeno), el mejor indicador indirecto de la capacidad aeróbica.</li>
+<li><strong>Test de Cooper</strong>: correr la máxima distancia posible en 12 minutos. También permite estimar el VO2 máx mediante fórmula.</li>
+</ul>
+<p>Ambos tests se usan al inicio y al final del trimestre para comparar la evolución real de cada alumno, no para comparar entre compañeros.</p>
+<h2>6. Por qué importa esto más allá de la asignatura</h2>
+<p>La resistencia cardiovascular es uno de los mejores predictores de salud a largo plazo (salud cardiovascular, metabólica, incluso cognitiva). El objetivo de este bloque no es solo mejorar una marca, sino entender cómo planificar y regular por uno mismo un entrenamiento aeróbico de forma autónoma, una competencia que se mantiene útil el resto de la vida.</p></div>
+        <h2 class="sesiones-title">Las 8 sesiones del trimestre</h2>
+        <p style="color:var(--ink-soft);font-size:14px;max-width:70ch;margin-top:-4px;">Patio/pista polideportiva del centro, control por pulsómetro. Haz clic en cada sesión para desplegar la ficha completa.</p>
+        <details class="ficha-sesion">
+  <summary><span class="fs-n">01</span><span class="fs-fecha">09 sep</span><span class="fs-obj">Test inicial + explicación de zonas</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El test de Course Navette estima tu VO2 máx (consumo máximo de oxígeno), el mejor indicador indirecto de tu capacidad aeróbica. A partir de tu FC máxima real (no de la fórmula genérica) se calculan tus zonas de entrenamiento personales para el resto del trimestre.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de trote muy suave y movilidad — nada de fatiga, para no alterar el resultado del test.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Explicación</td><td>10 min</td><td>—</td><td>Zonas de FC (tabla de teoría), cómo leer el pulsómetro, protocolo del test de Course Navette.</td></tr><tr><td>Medición del circuito</td><td>10 min</td><td>—</td><td>Medid y señalizad con conos la 'vuelta calibrada' del patio. Anotad los metros exactos.</td></tr><tr><td>Test de Course Navette</td><td>hasta el fallo</td><td>Máxima</td><td>Pista de 20 m marcada con conos, señal sonora creciente. Cada uno hasta que no llega a la línea a tiempo.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando + estiramientos suaves. Bebed agua.</p>
+    <div class="cierre-nota">Registrad en vuestro porfolio: nivel/palier alcanzado y la FC máxima real que marcó el pulsómetro — es más fiable que la fórmula genérica (220−edad) y la usaremos para ajustar vuestras zonas personales.</div>
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">02</span><span class="fs-fecha">16 sep</span><span class="fs-obj">Técnica de carrera + continuo Z2</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> La Zona 2 es la "base aeróbica": intensidad en la que el sistema oxidativo (el que usa oxígeno para obtener energía de grasas e hidratos) es claramente predominante. Es la zona más eficiente para construir resistencia de fondo, y la que más tiempo vais a entrenar antes de meter intensidades más altas.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 6 min trote suave + movilidad de cadera y tobillo.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Bloque técnico</td><td>10 min</td><td>Z1-Z2</td><td>4 ejercicios × 2 repeticiones de 20 m: skipping bajo, talón-glúteo, zancada lateral, técnica de brazada.</td></tr><tr><td>Carrera continua</td><td>15 min</td><td>Z2 (60-70% FCM)</td><td>Ritmo conversacional: si no podéis hablar con frases cortas, bajad el ritmo. Controlad el pulsómetro cada pocos minutos.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando hasta bajar de Zona 1 + estiramientos de cuádriceps, isquios, gemelos y glúteo.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">03</span><span class="fs-fecha">23 sep</span><span class="fs-obj">Continuo con cambios de ritmo</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Al subir de Z2 a Z3 os acercáis al umbral: el punto donde el sistema empieza a depender más del sistema glucolítico (anaeróbico) y cuesta mantener la conversación. Alternar zonas dentro de la misma sesión entrena al cuerpo a moverse entre ambos sistemas energéticos, no solo a sostener uno.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 8-10 min: trote muy suave (Zona 1) incorporando técnica de carrera — skipping bajo, talón-glúteo, zancada lateral — subiendo gradualmente hasta el borde de Zona 2.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Carrera continua variable</td><td>18 min</td><td>Alterna Z2 / Z3</td><td>En cada vuelta calibrada, alternad: 1 vuelta a ritmo Z2 (cómodo) + 1 vuelta a ritmo Z3 (algo más exigente). Repetid el patrón.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando hasta bajar de Zona 1 + estiramientos de cuádriceps, isquios, gemelos y glúteo.</p>
+    <div class="cierre-nota">Como el patio es llano y sin variedad de terreno, sustituimos los 'cambios de terreno' por cambios de ritmo controlados por zona de FC — el objetivo de fondo (que el cuerpo aprenda a gestionar cambios de intensidad) es el mismo.</div>
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">04</span><span class="fs-fecha">30 sep</span><span class="fs-obj">Fartlek</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> "Fartlek" significa "juego de ritmos" en sueco: a diferencia del interválico (que veremos en las próximas sesiones), aquí los cambios de intensidad no siguen una estructura fija de tiempos — son libres e impredecibles. Esto entrena la capacidad de reaccionar y cambiar de ritmo sin un plan cerrado, algo muy parecido a lo que exige un deporte real.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 8-10 min: trote muy suave (Zona 1) incorporando técnica de carrera — skipping bajo, talón-glúteo, zancada lateral — subiendo gradualmente hasta el borde de Zona 2.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Fartlek</td><td>20 min</td><td>Variable, libre</td><td>El profesor marca los cambios de ritmo con silbato o voz, sin patrón fijo: sprint corto → trote → ritmo medio → caminar. Nadie sabe cuándo llega el siguiente cambio — así se entrena a reaccionar, no a seguir un plan cerrado.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando hasta bajar de Zona 1 + estiramientos de cuádriceps, isquios, gemelos y glúteo.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">05</span><span class="fs-fecha">07 oct</span><span class="fs-obj">Series largas (interválico)</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> El método interválico alterna esfuerzo y recuperación de forma estructurada (a diferencia del fartlek, aquí los tiempos son fijos). Las series largas (varios minutos) desarrollan la resistencia a intensidades cercanas al umbral: el objetivo es sostener la misma intensidad en las 4 series, no acelerar en la primera y desfondarse en la última.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 8-10 min: trote muy suave (Zona 1) incorporando técnica de carrera — skipping bajo, talón-glúteo, zancada lateral — subiendo gradualmente hasta el borde de Zona 2. Añadid 2 progresiones cortas (80% de intensidad) antes de empezar las series.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Series largas</td><td>4 × 4 min</td><td>Z3-Z4</td><td>4 min de esfuerzo sostenido (moderado-alto) + 2 min de trote muy suave de recuperación entre series. Usad la vuelta calibrada para saber cuánta distancia cubrís en cada serie.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando hasta bajar de Zona 1 + estiramientos de cuádriceps, isquios, gemelos y glúteo.</p>
+    <div class="cierre-nota">Primera vez que trabajamos en formato interválico estructurado: el objetivo no es correr lo más rápido posible, sino sostener la misma intensidad en las 4 series.</div>
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">06</span><span class="fs-fecha">14 oct</span><span class="fs-obj">Series cortas de alta intensidad</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Las series cortas y muy intensas dependen sobre todo del sistema glucolítico (anaeróbico), el que produce ácido láctico y genera esa sensación de "quemazón" muscular. La recuperación corta entre series es intencionada: sin recuperar del todo, entrenáis a sostener intensidad alta con fatiga acumulada — distinto objetivo que las series largas de la sesión anterior.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 8-10 min: trote muy suave (Zona 1) incorporando técnica de carrera — skipping bajo, talón-glúteo, zancada lateral — subiendo gradualmente hasta el borde de Zona 2. Añadid 2-3 progresiones cortas más rápidas que en la sesión anterior.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Series cortas</td><td>8 × 1 min</td><td>Z4 (alta)</td><td>1 min de esfuerzo alto + 1 min de recuperación caminando. La recuperación es incompleta a propósito: el reto es mantener la intensidad en la serie 8 igual que en la 1.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando hasta bajar de Zona 1 + estiramientos de cuádriceps, isquios, gemelos y glúteo.</p>
+    
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">07</span><span class="fs-fecha">21 oct</span><span class="fs-obj">Sesión combinada — autogestión por parejas</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Esta sesión integra en un mismo bloque lo trabajado en Z2 (sistema oxidativo, base aeróbica) y en Z3-Z4 (más componente anaeróbico) — el tipo de exigencia mixta que aparece en la mayoría de deportes reales. Además, sois vosotros quienes autorreguláis la intensidad mirando el pulsómetro del compañero, no solo el profesor.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 8-10 min: trote muy suave (Zona 1) incorporando técnica de carrera — skipping bajo, talón-glúteo, zancada lateral — subiendo gradualmente hasta el borde de Zona 2.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Base continua</td><td>10 min</td><td>Z2</td><td>Ritmo cómodo, en parejas.</td></tr><tr><td>Bloque interválico</td><td>5 × 2 min</td><td>Z3-Z4</td><td>2 min de esfuerzo + 1 min de recuperación. Cada pareja se controla mutuamente el pulsómetro y ajusta el ritmo del compañero si se sale de zona.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando hasta bajar de Zona 1 + estiramientos de cuádriceps, isquios, gemelos y glúteo.</p>
+    <div class="cierre-nota">Esta sesión traspasa a vosotros el control que hasta ahora llevaba el profesor: sois vosotros quienes decidís, mirando el pulsómetro del compañero, si hay que apretar o bajar el ritmo. Es la preparación directa para interpretar bien el test final.</div>
+  </div>
+</details><details class="ficha-sesion">
+  <summary><span class="fs-n">08</span><span class="fs-fecha">28 oct</span><span class="fs-obj">Test final comparativo</span></summary>
+  <div class="fs-body">
+    <div class="concepto-dia"><strong>Concepto clave de hoy:</strong> Repetir el mismo test en las mismas condiciones es lo que permite comparar de forma fiable: no se trata solo de ver si el número (nivel/palier) ha subido, sino de relacionar esa mejora con las sesiones concretas del trimestre — la resistencia cardiovascular es uno de los mejores predictores de salud a largo plazo, así que esta curva de progresión importa más allá de la nota.</div>
+    <p class="fs-calentamiento"><strong>Calentamiento:</strong> 5 min de trote muy suave y movilidad — igual que en la sesión 1, sin fatiga previa.</p>
+    <table class="fs-tabla">
+      <thead><tr><th>Fase</th><th>Duración</th><th>Zona FC</th><th>Detalle</th></tr></thead>
+      <tbody><tr><td>Test de Course Navette</td><td>hasta el fallo</td><td>Máxima</td><td>Mismo protocolo exacto que la sesión 1, en el mismo circuito de 20 m.</td></tr></tbody>
+    </table>
+    <p class="fs-calentamiento"><strong>Vuelta a la calma:</strong> 5 min caminando + estiramientos.</p>
+    <div class="cierre-nota">Comparad vuestro nivel/palier y vuestra FC máxima con el registro de la sesión 1. La reflexión final no es solo "he mejorado o no", sino entender qué sesiones creéis que más han influido en el resultado — esa interpretación es la evaluación de cierre del bloque.</div>
+  </div>
+</details>
+        <div class="tu-turno">
+          <h2>Tu turno</h2>
+          <p>Espacio para entregas y sugerencias de "Resistencia". Esta parte se activará en la Fase 2 (entregas con feedback del profesor); de momento puedes escribir aquí una nota para ti — no se guarda todavía.</p>
+          <textarea class="sugerencia" placeholder="Escribe una sugerencia, duda o borrador de tu entrega…"></textarea>
+          <div class="turno-actions">
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar entrega</button>
+            <button class="btn" disabled title="Disponible en la Fase 2">Enviar sugerencia</button>
+          </div>
+        </div>
+      </div>
+    </div></div></main>
+<footer class="site-footer"><div class="wrap">
+  Actividades Físico Deportivas · 2º Bachillerato · Prof. Jaime Redondo Gómez · Curso 2026/2027 · Colegio Santa María la Blanca (Madrid)
+</div></footer>
+</body></html>
