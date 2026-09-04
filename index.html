@@ -46,7 +46,13 @@ a{color:inherit;} img{max-width:100%;}
 .bloque-card .tag{align-self:flex-start;font-family:var(--font-display);font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:3px;color:#fff;}
 .bloque-card h3{margin:0;font-size:18px;} .bloque-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
 .bloque-card .dia{font-size:12px;color:var(--ink-soft);margin-top:auto;}
-.tag.cinder{background:var(--cinder);} .tag.track{background:var(--track);} .tag.lane{background:var(--lane);} .tag.bib{background:var(--bib);}
+.tag.cinder,.bloque-eyebrow.cinder{background:var(--cinder);} .tag.track,.bloque-eyebrow.track{background:var(--track);} .tag.lane,.bloque-eyebrow.lane{background:var(--lane);} .tag.bib,.bloque-eyebrow.bib{background:var(--bib);}
+.icon-badge{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex:0 0 auto;color:#fff;}
+.icon-badge svg{width:56%;height:56%;display:block;}
+.card-icon{width:34px;height:34px;}
+.bloque-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.bloque-header .bh-icon{width:60px;height:60px;margin-top:2px;}
+.bloque-header .bh-text{flex:1;min-width:0;}
 .bloque-layout{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:32px 0 70px;align-items:start;}
 .side-nav{position:sticky;top:78px;}
 .side-nav .group{margin-bottom:20px;}
@@ -122,39 +128,51 @@ textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font
   <div class="num">02</div><div class="name">Segundo trimestre</div><div class="range">04 nov – 22 ene</div></a><a class="trim-card t3" href="#t3">
   <div class="num">03</div><div class="name">Tercer trimestre</div><div class="range">02 feb – 23 abr</div></a></div>
   <h2 class="section-title" id="t1">Primer trimestre</h2><div class="bloque-grid"><a class="bloque-card" href="01-fuerza.html">
+      <span class="icon-badge card-icon" style="background:var(--bib)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="13" r="2.4"/><circle cx="22" cy="13" r="2.4"/><line x1="6.4" y1="13" x2="9" y2="13"/><line x1="17" y1="13" x2="19.6" y2="13"/><line x1="9" y1="9" x2="9" y2="17"/><line x1="17" y1="9" x2="17" y2="17"/><line x1="9" y1="13" x2="17" y2="13"/></svg></span>
       <span class="tag bib">Todo el curso</span>
       <h3>Fuerza</h3><p>Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
       <span class="dia">📅 Martes</span></a><a class="bloque-card" href="02-resistencia.html">
+      <span class="icon-badge card-icon" style="background:var(--cinder)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="14" r="8"/><line x1="13" y1="14" x2="13" y2="9"/><line x1="13" y1="14" x2="16.5" y2="16"/><line x1="10" y1="3" x2="16" y2="3"/><line x1="13" y1="3" x2="13" y2="6"/><line x1="19" y1="6.5" x2="20.3" y2="5.2"/></svg></span>
       <span class="tag cinder">Trim. 1</span>
       <h3>Resistencia</h3><p>Resistencia aeróbica y anaeróbica: sistemas energéticos, zonas de FC, métodos de entrenamiento y pruebas de valoración.</p>
       <span class="dia">📅 Miércoles</span></a><a class="bloque-card" href="03-deporte-profesor.html">
+      <span class="icon-badge card-icon" style="background:var(--cinder)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="14" height="19" rx="2"/><rect x="10" y="2" width="6" height="4" rx="1"/><line x1="9" y1="11" x2="17" y2="11"/><line x1="9" y1="15" x2="17" y2="15"/><line x1="9" y1="19" x2="14" y2="19"/></svg></span>
       <span class="tag cinder">Trim. 1</span>
       <h3>Deporte del profesor</h3><p>Deporte de iniciación dirigido por Jaime. Contenido pendiente de confirmar.</p>
       <span class="dia">📅 Jueves</span></a><a class="bloque-card" href="04-deporte-alumnos.html">
+      <span class="icon-badge card-icon" style="background:var(--cinder)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v4h3l6 4V7l-6 4H3z"/><path d="M15 9a5 5 0 0 1 0 8"/><path d="M18 6a9 9 0 0 1 0 14"/><line x1="7" y1="15" x2="7" y2="19.5"/></svg></span>
       <span class="tag cinder">Todo el curso</span>
       <h3>Deporte diseñado por alumnos</h3><p>Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
       <span class="dia">📅 Viernes</span></a></div><h2 class="section-title" id="t2">Segundo trimestre</h2><div class="bloque-grid"><a class="bloque-card" href="01-fuerza.html">
+      <span class="icon-badge card-icon" style="background:var(--bib)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="13" r="2.4"/><circle cx="22" cy="13" r="2.4"/><line x1="6.4" y1="13" x2="9" y2="13"/><line x1="17" y1="13" x2="19.6" y2="13"/><line x1="9" y1="9" x2="9" y2="17"/><line x1="17" y1="9" x2="17" y2="17"/><line x1="9" y1="13" x2="17" y2="13"/></svg></span>
       <span class="tag bib">Todo el curso</span>
       <h3>Fuerza</h3><p>Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
       <span class="dia">📅 Martes</span></a><a class="bloque-card" href="04-deporte-alumnos.html">
+      <span class="icon-badge card-icon" style="background:var(--cinder)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v4h3l6 4V7l-6 4H3z"/><path d="M15 9a5 5 0 0 1 0 8"/><path d="M18 6a9 9 0 0 1 0 14"/><line x1="7" y1="15" x2="7" y2="19.5"/></svg></span>
       <span class="tag cinder">Todo el curso</span>
       <h3>Deporte diseñado por alumnos</h3><p>Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
       <span class="dia">📅 Viernes</span></a><a class="bloque-card" href="05-natacion.html">
+      <span class="icon-badge card-icon" style="background:var(--track)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9q3-3 6 0t6 0 6 0 6 0"/><path d="M2 14.5q3-3 6 0t6 0 6 0 6 0"/><path d="M2 20q3-3 6 0t6 0 6 0 6 0"/></svg></span>
       <span class="tag track">Trim. 2</span>
       <h3>Natación</h3><p>Técnica de crol, espalda y braza. Principios físicos del nado y resistencia acuática.</p>
       <span class="dia">📅 Miércoles</span></a><a class="bloque-card" href="06-pickleball.html">
+      <span class="icon-badge card-icon" style="background:var(--track)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="8.5" cy="10" rx="6" ry="7.2" transform="rotate(-30 8.5 10)"/><line x1="12.5" y1="15" x2="17.5" y2="21"/><circle cx="20" cy="6" r="2.6"/><circle cx="19.3" cy="4.9" r="0.4" fill="currentColor" stroke="none"/><circle cx="20.9" cy="4.9" r="0.4" fill="currentColor" stroke="none"/><circle cx="19.3" cy="7.1" r="0.4" fill="currentColor" stroke="none"/><circle cx="20.9" cy="7.1" r="0.4" fill="currentColor" stroke="none"/></svg></span>
       <span class="tag track">Trim. 2</span>
       <h3>Pickleball</h3><p>Deporte de raqueta por retos graduados: del saque básico a la liguilla interna.</p>
       <span class="dia">📅 Jueves</span></a></div><h2 class="section-title" id="t3">Tercer trimestre</h2><div class="bloque-grid"><a class="bloque-card" href="01-fuerza.html">
+      <span class="icon-badge card-icon" style="background:var(--bib)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="13" r="2.4"/><circle cx="22" cy="13" r="2.4"/><line x1="6.4" y1="13" x2="9" y2="13"/><line x1="17" y1="13" x2="19.6" y2="13"/><line x1="9" y1="9" x2="9" y2="17"/><line x1="17" y1="9" x2="17" y2="17"/><line x1="9" y1="13" x2="17" y2="13"/></svg></span>
       <span class="tag bib">Todo el curso</span>
       <h3>Fuerza</h3><p>Eje transversal de todo el curso. Gimnasio del centro. Tres mesociclos: adaptación anatómica, hipertrofia/fuerza y fuerza-potencia.</p>
       <span class="dia">📅 Martes</span></a><a class="bloque-card" href="04-deporte-alumnos.html">
+      <span class="icon-badge card-icon" style="background:var(--cinder)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v4h3l6 4V7l-6 4H3z"/><path d="M15 9a5 5 0 0 1 0 8"/><path d="M18 6a9 9 0 0 1 0 14"/><line x1="7" y1="15" x2="7" y2="19.5"/></svg></span>
       <span class="tag cinder">Todo el curso</span>
       <h3>Deporte diseñado por alumnos</h3><p>Proyecto anual: analizar, diseñar y dirigir una sesión de condición física específica de un deporte elegido por cada grupo.</p>
       <span class="dia">📅 Viernes</span></a><a class="bloque-card" href="07-hibrido.html">
+      <span class="icon-badge card-icon" style="background:var(--lane)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="15.5" r="5.2"/><path d="M10 10.5a3 3 0 0 1 6 0"/><path d="M1 21.5h3l2-4.5 2.5 7 2-9 2 6.5h5.5"/></svg></span>
       <span class="tag lane">Trim. 3</span>
       <h3>Híbrido Fuerza-Resistencia</h3><p>Entrenamiento concurrente: circuitos funcionales, HIIT, formatos EMOM y AMRAP.</p>
       <span class="dia">📅 Miércoles</span></a><a class="bloque-card" href="08-malabares.html">
+      <span class="icon-badge card-icon" style="background:var(--lane)"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="8" r="2.4"/><circle cx="13" cy="4.2" r="2.4"/><circle cx="20" cy="8" r="2.4"/><path d="M4 20c1.5-6.5 4-9.5 9-9.5s7.5 3 9 9.5" stroke-dasharray="2.2 2.4"/></svg></span>
       <span class="tag lane">Trim. 3</span>
       <h3>Malabares</h3><p>Coordinación y aprendizaje motor por retos graduados: de 1 objeto a la exhibición final.</p>
       <span class="dia">📅 Jueves</span></a></div>
