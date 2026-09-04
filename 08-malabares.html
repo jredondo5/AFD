@@ -382,7 +382,7 @@ textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font
         </div>
         <script>
         (function(){
-          var SCRIPT_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT_WEB_APP"; // Extensiones > Apps Script > Implementar > Aplicación web (ver instrucciones del profesor)
+          var SCRIPT_URL = "https://script.google.com/a/macros/p.csmb.es/s/AKfycbwhCoeBnAgglVjybdyyiKJkao7hnWNEZd6IbIaSLor9UKXAPXGW34NBI-GNYDj22BDIfg/exec";
           var BLOQUE = "Malabares";
           var nombreEl = document.getElementById('turno-nombre');
           var grupoEl = document.getElementById('turno-grupo');
@@ -407,11 +407,6 @@ textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font
               estadoEl.className = 'turno-estado err';
               return;
             }
-            if (SCRIPT_URL.indexOf('PEGA_AQUI') === 0){
-              estadoEl.textContent = 'El profesor todavía no ha activado el envío a la hoja de cálculo.';
-              estadoEl.className = 'turno-estado err';
-              return;
-            }
             try {
               localStorage.setItem('afd-nombre', nombre);
               localStorage.setItem('afd-grupo', grupo);
@@ -421,15 +416,18 @@ textarea.sugerencia{width:100%;min-height:80px;font-family:var(--font-body);font
             estadoEl.className = 'turno-estado';
             fetch(SCRIPT_URL, {
               method: 'POST',
-              mode: 'no-cors',
               headers: {'Content-Type':'text/plain;charset=utf-8'},
               body: JSON.stringify({bloque: BLOQUE, tipo: tipo, nombre: nombre, grupo: grupo, mensaje: mensaje})
-            }).then(function(){
+            }).then(function(r){
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              return r.json();
+            }).then(function(data){
+              if (!data || !data.ok) throw new Error('respuesta inesperada');
               estadoEl.textContent = '✓ Enviado. Gracias, ' + nombre + '.';
               estadoEl.className = 'turno-estado ok';
               textoEl.value = '';
             }).catch(function(){
-              estadoEl.textContent = 'No se ha podido enviar — revisa tu conexión e inténtalo de nuevo.';
+              estadoEl.textContent = 'No se ha podido enviar. Inténtalo de nuevo; si sigue fallando, avisa al profesor.';
               estadoEl.className = 'turno-estado err';
             }).finally(function(){
               botones.forEach(function(b){ b.disabled = false; });

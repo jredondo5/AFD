@@ -12,8 +12,14 @@
 //    que cada alumno tenga que iniciar sesión en Google. No hace falta compartir la hoja).
 // 7. Pulsa "Implementar" y autoriza los permisos que pida Google (es tu propio script).
 // 8. Copia la "URL de la aplicación web" (termina en /exec).
-// 9. Pega esa URL en la constante SCRIPT_URL de cada página del sitio (búscala como
-//    "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT_WEB_APP" en los ficheros 01-fuerza.html … 08-malabares.html).
+// 9. Esa URL ya está integrada en la constante SCRIPT_URL de los ficheros
+//    01-fuerza.html … 08-malabares.html. Si algún día vuelves a implementar el script
+//    con una URL nueva, hay que actualizarla en esos 8 ficheros.
+//
+// IMPORTANTE: "Quién tiene acceso" debe ser "Cualquier usuario". Si se restringe al
+// dominio o a usuarios con cuenta de Google, el envío desde la web fallará: el navegador
+// no manda las cookies de sesión de Google en peticiones a otro dominio, así que Google
+// respondería con una redirección al login y la fila no se guardaría.
 //
 // Cada envío añade una fila con: fecha y hora, bloque, tipo (Entrega/Sugerencia),
 // nombre y grupo (tal como los escribe el alumno, sin verificar identidad), y el mensaje.
